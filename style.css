@@ -5,10 +5,16 @@
     width: 350px;
     height: 200px;
     /*outline: dashed 1px #553434;*/
-  }
+}
   
   p {
     /* Center horizontally*/
     text-align: center;
     color:#c2c2c2
-  }
+}
+
+.chart {
+    display:flex; 
+    justify-content:center; 
+    align-items:center; 
+}
