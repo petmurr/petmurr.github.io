@@ -1,0 +1,14 @@
+.ctr {
+    font-family: arial;
+    font-size: 24px;
+    margin: 25px;
+    width: 350px;
+    height: 200px;
+    /*outline: dashed 1px #553434;*/
+  }
+  
+  p {
+    /* Center horizontally*/
+    text-align: center;
+    color:#c2c2c2
+  }
