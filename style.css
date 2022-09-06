@@ -2,19 +2,171 @@
     font-family: arial;
     font-size: 24px;
     margin: 25px;
-    width: 350px;
+    width: "100";
     height: 200px;
     /*outline: dashed 1px #553434;*/
 }
   
-  p {
+p {
     /* Center horizontally*/
     text-align: center;
     color:#c2c2c2
+}
+
+#fadeButton {
+    /* animation: fadeIn 10s; */
+    display: flex;
+    justify-content: center;
+}
+
+a{
+    text-decoration: none;
+}
+
+.button2 {
+    position: absolute;
+    top:90%;
+    background-color:#2e4757;
+    color: #c2c2c2;
+    border: none;
+    border-radius:10px;
+
+    display:flex;
+    justify-content:center;
+    /* align-items: center; */
+
+    color: #bdbdbd;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.025rem;
+    width: calc(10% + 0.025rem);
+    font-size: 1.5em;
+    padding: 1rem;
+    letter-spacing: 0.25rem;
+    line-height: 1.2;
+    font-weight: 300;
+
+    transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease
+  }
+
+.button {
+    position: absolute;
+    top:90%;
+    background-color:#2e4757;
+    color: #c2c2c2;
+    border:none;
+    border-radius:10px;
+
+    display:flex;
+    justify-content:center;
+    /* align-items: center; */
+
+    color: #bdbdbd;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.025rem;
+    width: calc(15% + 0.025rem);
+    font-size: 1em;
+    padding: 1rem;
+    letter-spacing: 0.25rem;
+    line-height: 1.2;
+    font-weight: 300;
+
+    transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease
+  }
+
+.button:hover {
+    background-color: #41667c;
+    transition: 0.7s;
+}
+.button2:hover {
+    background-color: #41667c;
+    transition: 0.7s;
+}
+.button:active {
+    background-color: #7dc9f5;
+    transition: .1s;
+}
+.button2:active {
+    background-color: #7dc9f5;
+    transition: .1s;
 }
 
 .chart {
     display:flex; 
     justify-content:center; 
     align-items:center; 
+}
+
+#nicetext_nofade {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+
+    color: #bdbdbd;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.025rem;
+    width: calc(100% + 0.025rem);
+    font-size: 2em;
+    line-height: 1.2;
+    font-weight: 300;
+}
+
+#nicetext{
+    /* animation: fadeIn 5s; */
+    display:flex;
+    justify-content:center;
+    align-items: center;
+
+    color: #bdbdbd;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.025rem;
+    width: calc(100% + 0.025rem);
+    font-size: 2em;
+    line-height: 1.2;
+    font-weight: 300;
+    opacity: 0;
+}
+
+@keyframes fadeButton { 
+    0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes fdsseq { 
+	100% { opacity: 1; }
+}
+
+ @keyframes fdsseq {
+    100% { opacity: 1; }
+}
+@keyframes fdsseq {
+    100% {opacity: 1;}
+}
+  
+@-moz-keyframes fdsseq {
+    100% {opacity: 1;}
+}
+  
+@-webkit-keyframes fdsseq {
+    100% {opacity: 1;}
+}
+  
+@-o-keyframes fdsseq {
+    100% {opacity: 1;}
+}
+  
+@-ms-keyframes fdsseq {
+    100% {opacity: 1;}
+}  
+
+#fadeText p {
+	animation: fdsseq 5s forwards;
+}
+#fadeText p:nth-child(1) {
+	animation-delay: .5s;
+}
+#fadeText p:nth-child(2) {
+	animation-delay: 2.5s;
+}
+#fadeText p:nth-child(3) {
+	animation-delay: 4.5s;
 }
