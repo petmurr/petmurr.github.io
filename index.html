@@ -1,30 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Philosophical Sects Forum 07</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body style="background-color:#18252d;"></body>>
-    <main>
-        <h1 style="color:#c2c2c2;" ></h1> 
+<html>
 
-        <div id="fadeText">
-          <p id="nicetext">Hello.</p>
-          <p id="nicetext">You've found my website.</p>
-          <p id="nicetext">It's nice to see you.</p>
-        </div>
-        
-        <div id="fadeButton">
-          <a href="tempchart.html" type="button" class="button">Temp Chart</a>
-        </div>
+<head>
+    <title>Philosophical Sects Forum Title Ideas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    </main>
-	<script src="index.js"></script>
-  </body>
+<script defer>
+    const articles = ["aHome", "a2"];
+
+    // function switchLeft(articleNum) {
+    //     if (articleNum == 0) {
+    //         var new_articleNum = articles.length - 1;
+    //     }
+    //     else {
+    //         var new_articleNum = articleNum - 1;
+    //     }
+    //     var a_new = document.getElementById(articles[new_articleNum]);
+    //     var a_old = document.getElementById(articles[articleNum])
+
+    //     a_old.style.display = "none";
+    //     a_new.style.display = "grid";
+
+    //     console.log("switchLeft was called!");
+    // }
+
+    // function switchRight(articleNum) {
+    //     if ((articleNum + 1) == articles.length) {
+    //         var new_articleNum = 0;
+    //     }
+    //     else {
+    //         var new_articleNum = articleNum + 1;
+    //     }
+    //     var a_new = document.getElementById(articles[new_articleNum]);
+    //     var a_old = document.getElementById(articles[articleNum])
+
+    //     a_old.style.display = "none";
+    //     a_new.style.display = "grid";
+
+    //     console.log("switchLeft was called!");
+
+    // }
+
+
+    
+    const json = [
+            {
+                name: "homepage",
+                description: "HOME PAGE DESCRIPTION",
+            },
+            {
+                name: "homepage",
+                description: "HOME PAGE DESCRIPTION"
+            }
+        ]
+    const currentPage = 0
+    const innerMain = `
+    <div class="bottom_text" id="bottom_text">
+                <p>INNER MAIN</p>
+                <h1>${json[currentPage].name}</h1>
+                <p>${json[currentPage].description}</p>
+            </div>
+    `
+  
+    const mainTag = document.getElementById("main")
+    mainTag.innerHTML = innerMain
+
+  
+</script>
+
+<nav>
+    <div onclick="location.href='#'" id="nav_logo" class="nav_s">
+        <h2>Peter Murray</h2>
+    </div>
+
+    <div onclick="location.href='#'" id="nav_about" class="nav_s">
+        <p>About</p>
+    </div>
+
+    <div onclick="location.href='#'" id="nav_social" class="nav_s">
+        <p>Social</p>
+    </div>
+
+    <div onclick="location.href='#'" id="nav_contact" class="nav_s">
+        <p>Contact me</p>
+    </div>
+
+    <div onclick="location.href='#'" id="nav_projects" class="nav_s">
+        <p>Projects</p>
+    </div>
+
+</nav>
+
+<main id="main">
+    <!-- <article id="aHome">
+        <div class="article_image asec">
+            <div class="image" style="background-image: url(IMG_1806.jpg); "></div>
+        </div>
+        <div class="article_desc asec">
+            <div class="bottom_text" id="bottom_text">
+                <p>This website was heavily inspired by <a
+                        href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a
+                        href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work.</p>
+            </div>
+        </div>
+        <div class="article_title asec">
+            <div class="title_text" id="title_text">
+                <h1>Explore my <a href="#">photos</a>, download my <a href="#">resume</a>, or play a game of <a
+                        href="#">minesweeper.</a></h1>
+            </div>
+        </div>
+        <div class="article_nav asec">
+            <div onclick="switchLeft()" class="left" id="leftright">
+                <h1>
+                    < </h1>
+            </div>
+            <div onclick="switchRight()" class="right" id="leftright">
+                <h1>></h1>
+            </div>
+        </div>
+    </article> -->
+
+    <!-- <article id="a2">
+        <div class="article_image asec">
+            <div class="image" style="background-image: url(IMG_1806.jpg); "></div>
+        </div>
+        <div class="article_desc asec">
+            <div class="bottom_text" id="bottom_text">
+                <p>Article 2 description</p>
+            </div>
+        </div>
+        <div class="article_title asec">
+            <div class="title_text" id="title_text">
+                <h1>Article 2 title</a></h1>
+            </div>
+        </div>
+        <div class="article_nav asec">
+            <div onclick="switchLeft(1)" class="left" id="leftright">
+                <h1>
+                    < </h1>
+            </div>
+            <div onclick="switchRight(1)" class="right" id="leftright">
+                <h1>></h1>
+            </div>
+        </div>
+    </article> -->
+
+</main>
+
 </html>
