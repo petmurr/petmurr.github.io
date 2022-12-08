@@ -1,30 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Philosophical Sects Forum 07</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <body style="background-color:#18252d;"></body>>
-    <main>
-        <h1 style="color:#c2c2c2;" ></h1> 
+<html>
 
-        <div id="fadeText">
-          <p id="nicetext">Hello.</p>
-          <p id="nicetext">You've found my website.</p>
-          <p id="nicetext">It's nice to see you.</p>
-        </div>
-        
-        <div id="fadeButton">
-          <a href="tempchart.html" type="button" class="button">Temp Chart</a>
+<head>
+    <title>Philosophical Sects Forum Title Ideas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <nav>
+        <div onclick="location.href='#'" id="nav_logo" class="nav_s">
+            <h2>Peter Murray</h2>
         </div>
 
-    </main>
-	<script src="index.js"></script>
-  </body>
+        <div onclick="location.href='#'" id="nav_about" class="nav_s">
+            <p>About</p>
+        </div>
+
+        <div onclick="location.href='#'" id="nav_social" class="nav_s">
+            <p>Social</p>
+        </div>
+
+        <div onclick="location.href='#'" id="nav_contact" class="nav_s">
+            <p>Contact me</p>
+        </div>
+
+        <div onclick="location.href='#'" id="nav_projects" class="nav_s">
+            <p>Projects</p>
+        </div>
+
+    </nav>
+
+    <main id="main" />
+
+
+
+    <script defer>
+        const mainTag = document.getElementById("main")
+        let currentPage = 0
+
+        function switchLeft() {
+            if (currentPage - 1 < 0) {
+                currentPage = json.length - 1
+            } else {
+                currentPage--
+            }
+            // REMOVE 
+            setInnerText(currentPage)
+            console.log("L") //gabe what is this
+            console.log(currentPage)
+        }
+
+        function switchRight() {
+            if (currentPage + 1 > json.length - 1) {
+                currentPage = 0
+            } else {
+                currentPage++
+            }
+            // REMOVE 
+            console.log(currentPage)
+            setInnerText(currentPage)
+        }
+
+        const json = [
+            {
+                name: "homepage",
+                articleTitle: `Explore my <a href="#">photos</a>, download my <a href="#">resume</a>, or play a game of <a
+                            href="#">minesweeper.</a>`,
+                articleDesc: `This website was heavily inspired by <a href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work.`
+            },
+            {
+                name: "Second Page",
+                articleTitle: `Explore my second page.</a>`,
+                articleDesc: `Go checkout <a href="https://gabecamacho.com">Gabe's</a> website.`
+            }
+        ]
+        function setInnerText(pageNumber) {
+            mainTag.innerHTML = `
+        <article>
+            <div class="article_image asec">
+                <div class="image" style="background-image: url(images/1.jpeg); "></div>
+            </div>
+            <div class="article_desc asec">
+                <div class="bottom_text" id="bottom_text">
+                    <p>${json[currentPage].articleDesc}</p>
+                </div>
+            </div>
+            <div class="article_title asec">
+                <div class="title_text" id="title_text">
+                    <h1>${json[currentPage].articleTitle}</h1>
+                </div>
+            </div>
+            <div class="article_nav asec">
+                <div onclick="switchLeft()" class="left" id="leftright">
+                    <h1><</h1>
+                </div>
+                <div onclick="switchRight()" class="right" id="leftright">
+                    <h1>></h1>
+                </div>
+            </div>
+            `
+        }
+
+
+        setInnerText(0)
+
+
+    </script>
+
+</body>
+
 </html>
