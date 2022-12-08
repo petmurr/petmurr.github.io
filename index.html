@@ -48,8 +48,6 @@
             }
             // REMOVE 
             setInnerText(currentPage)
-            console.log("L")
-            console.log(currentPage)
         }
 
         function switchRight() {
@@ -58,8 +56,6 @@
             } else {
                 currentPage++
             }
-            // REMOVE 
-            console.log(currentPage)
             setInnerText(currentPage)
         }
 
@@ -68,19 +64,22 @@
                 name: "homepage",
                 articleTitle: `Explore my <a href="#">photos</a>, download my <a href="#">resume</a>, or play a game of <a
                             href="#">minesweeper.</a>`,
-                articleDesc: `This website was heavily inspired by <a href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work.`
+                articleDesc: `This website was heavily inspired by <a href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work.`,
+                imgSrc: "images/1.jpeg"
+
             },
             {
                 name: "Second Page",
                 articleTitle: `Explore my second page.</a>`,
-                articleDesc: `Go checkout <a href="https://gabecamacho.com">Gabe's</a> website.`
+                articleDesc: `Go checkout <a href="https://gabecamacho.com">Gabe's</a> website.`,
+                imgSrc: "images/2.jpeg"
             }
         ]
         function setInnerText(pageNumber) {
             mainTag.innerHTML = `
         <article>
             <div class="article_image asec">
-                <div class="image" style="background-image: url(images/1.jpeg); "></div>
+                <div class="image" style="background-image: url(${json[currentPage].imgSrc}); "></div>
             </div>
             <div class="article_desc asec">
                 <div class="bottom_text" id="bottom_text">

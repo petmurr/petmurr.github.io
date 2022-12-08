@@ -5,7 +5,7 @@
     --border_color: #24424a8d;
     --link_color_bg: #324d5f;
     --link_color: #a7d2ef;
-
+    --nav_width: 20rem;
 }
 
 body {
@@ -18,9 +18,7 @@ body {
 }
 
 main {
-    flex-grow: 90vw;
-    flex-shrink: 10vw;
-    flex-basis:70vw;
+    flex-basis: calc(100vw - var(--nav_width));
 }
 
 main > article {
@@ -42,7 +40,6 @@ main > article > .article_nav,
 main > article > .article_title {
     border-top: 1px solid var(--border_color)
 }
-
 
 main > article > .article_image .image {
     width: 100%;
@@ -127,7 +124,7 @@ nav {
     flex-direction: column;
     width: 25vw;
     border-right: 1px solid var(--border_color);
-    flex-grow: 1; 
+    flex-basis:var(--nav_width);
 }
 
 nav > .nav_s {
@@ -160,11 +157,9 @@ nav > .nav_s {
     justify-content: flex-start;
 }
 
-
 #nav_logo > h2 {
     font-size: 2.75rem;
 }
-
 
 #nav_logo {
     flex-basis: calc((100% / 3) + (100% / 12));
