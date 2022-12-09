@@ -5,7 +5,7 @@
     --border_color: #24424a8d;
     --link_color_bg: #324d5f;
     --link_color: #a7d2ef;
-
+    --nav_width: 15rem;
 }
 
 body {
@@ -18,9 +18,7 @@ body {
 }
 
 main {
-    flex-grow: 90vw;
-    flex-shrink: 10vw;
-    flex-basis:70vw;
+    flex-basis: calc(100vw - var(--nav_width));
 }
 
 main > article {
@@ -43,12 +41,22 @@ main > article > .article_title {
     border-top: 1px solid var(--border_color)
 }
 
-
 main > article > .article_image .image {
-    width: 100%;
     height: 100%;
     background-position: center; 
     background-size: cover;
+}
+
+/* make stuff compatable with gifs/vids */
+main > article > .article_image img {
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+main > article > .article_image video {
+    height: 100%;
+    width: 100%;
 }
 
 main > article > .article_desc {
@@ -67,6 +75,7 @@ main > article > .article_desc {
 
 main > article > .article_desc > .bottom_text {
     align-self: flex-end;
+
 }
 
 main > article > .article_title {
@@ -74,7 +83,7 @@ main > article > .article_title {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    padding: 10%;
+    padding: 10%
 }
 
 #title_text a {
@@ -92,7 +101,7 @@ main > article > .article_title > .title_text {
     /* font-family: 'Work Sans', sans-serif !important; */
 }
 
-/* Article Navigation LEFT/RIGHT */
+/* ARTICLE NAVIGATION LEFT/RIGHT */
 main > article > .article_nav {
     display: flex;
     flex-wrap: 1;
@@ -121,14 +130,15 @@ main > article > .article_nav > .left, .right {
 }
 
 /* NAV BAR */
-
 nav {
     display: flex;
     flex-direction: column;
-    width: 1rem;
+    /* width: 25vw; */
     border-right: 1px solid var(--border_color);
-    flex-grow: 1; 
+    flex-basis:var(--nav_width);
+    overflow: hidden;
 }
+
 
 nav > .nav_s {
     display: flex;
@@ -160,11 +170,9 @@ nav > .nav_s {
     justify-content: flex-start;
 }
 
-
 #nav_logo > h2 {
     font-size: 2.75rem;
 }
-
 
 #nav_logo {
     flex-basis: calc((100% / 3) + (100% / 12));
@@ -190,4 +198,27 @@ h1, h2, h3, a, p, span {
 
 a {
     text-decoration: none;
+}
+
+/* MOBLE CENTRIC PROGRAMMING,
+allowing us to tap into the collective consciousness of humanity and access the 
+hidden knowledge and wisdom of the universe.By prioritizing mobile devices, 
+we can harness the power of the interconnectedness of all things and unlock 
+the full potential of our collective intelligence. */
+
+@media (max-width:700px){
+    .navbar {
+        display: none;
+    }
+
+    main > article {
+        /* display: grid; */
+        grid-template-columns: 66.66vw 33.333vw;
+        grid-template-rows: 2fr 1fr;
+    }
+
+    .title_text {
+        font-size: 6rem;
+    }
+
 }

@@ -9,8 +9,8 @@
 <body>
 
 
-    <nav>
-        <div onclick="location.href='#'" id="nav_logo" class="nav_s">
+    <nav class="navbar">
+        <div onclick="location.href='index.html'" id="nav_logo" class="nav_s">
             <h2>Peter Murray</h2>
         </div>
 
@@ -48,8 +48,6 @@
             }
             // REMOVE 
             setInnerText(currentPage)
-            console.log("L") //gabe what is this
-            console.log(currentPage)
         }
 
         function switchRight() {
@@ -58,29 +56,34 @@
             } else {
                 currentPage++
             }
-            // REMOVE 
-            console.log(currentPage)
             setInnerText(currentPage)
         }
 
         const json = [
             {
-                name: "homepage",
-                articleTitle: `Explore my <a href="#">photos</a>, download my <a href="#">resume</a>, or play a game of <a
-                            href="#">minesweeper.</a>`,
-                articleDesc: `This website was heavily inspired by <a href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work.`
+                name: "home",
+                articleTitle: `Explore my <a href="#">photos</a>, download my <a href="#">resume</a>, or play a game of <a href="#">minesweeper.</a>`,
+                articleDesc: `This website was heavily inspired by <a href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work.`,
+                imgSrc: "IMG_1806.jpg",
+                vidSrc: ""
+
             },
             {
-                name: "Second Page",
-                articleTitle: `Explore my second page.</a>`,
-                articleDesc: `Go checkout <a href="https://gabecamacho.com">Gabe's</a> website.`
+                name: "FSAE",
+                articleTitle: `FSAE Electric 2023 - WPI's Electric Racecar. Check out my work on our <a href="#">accumulator</a>!</a>`,
+                articleDesc: `Myself and 19 other students improve and redesign the 2022 racecar.`,
+                imgSrc: "",
+                // vidSrc: "<img src='fsae.gif'>"
+                // vidSrc: "<video src='petermurray.net/fsae.webm'></video>"
+                vidSrc: ""
             }
         ]
+
         function setInnerText(pageNumber) {
             mainTag.innerHTML = `
         <article>
             <div class="article_image asec">
-                <div class="image" style="background-image: url(images/1.jpeg); "></div>
+                <div class="image" style="background-image: url(${json[currentPage].imgSrc});">${json[currentPage].vidSrc}</div>
             </div>
             <div class="article_desc asec">
                 <div class="bottom_text" id="bottom_text">
