@@ -126,6 +126,36 @@ a{
     opacity: 0;
 }
 
+body {
+    overflow: hidden;
+}
+.altmain {
+    display: flex;
+    margin: 0;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: hidden;
+    align-items: center;
+    justify-content: center;
+}
+.rjfx1 {
+    display: block;
+    height: 100vh;
+    width: 50vw;
+    box-sizing: border-box;
+    padding-right: 3px;
+}
+
+.rjfx2 {
+    display: block;
+    height: 100vh;
+    width: 50vw;
+    box-sizing: border-box;
+    padding-left: 3px;
+}
+
 @keyframes fadeButton { 
     0% { opacity: 0; }
 	100% { opacity: 1; }
