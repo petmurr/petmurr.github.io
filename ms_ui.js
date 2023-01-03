@@ -9,9 +9,14 @@ const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
 const boardElement = document.querySelector('.board') //place under 'board' class seen in html
 
 const minesLeftText = document.querySelector('[mine-count]')
-const messageText = document.querySelector('.subtext')
+const messageText = document.querySelector('.status')
 
 boardElement.style.setProperty("--size", BOARD_SIZE)
+
+let subtext = document.querySelector('.subtext')
+subtext.style.setProperty("--imported_size", BOARD_SIZE)
+
+
 minesLeftText.textContent = NUMBER_OF_MINES
 
 board.forEach(row => [
