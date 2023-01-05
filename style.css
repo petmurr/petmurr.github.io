@@ -137,10 +137,11 @@ main > article > .article_nav > .left, .right {
 nav {
     display: flex;
     flex-direction: column;
-    /* width: 25vw; */
-    border-right: 1px solid var(--border_color);
+    width: 200px;
+    min-width: 10vw;
     flex-basis:var(--nav_width);
     overflow: hidden;
+    border-right: 1px solid var(--border_color); 
 }
 
 
@@ -219,6 +220,10 @@ the full potential of our collective intelligence. */
         /* display: grid; */
         grid-template-columns: 66.66vw 33.333vw;
         grid-template-rows: 2fr 1fr;
+    }
+
+    #contactBody {
+        width: 100%;
     }
 
     .title_text {

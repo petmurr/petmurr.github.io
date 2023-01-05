@@ -69,12 +69,12 @@
         
         <script defer>
             function hideSettings() {
-                var settings = document.getElementById("settings");
+                const settings = document.getElementById("settings");
 
-                if(settings.style.display === "none") {
-                    settings.style.display = "flex";
-                } else {
+                if(settings.style.display === "flex") {
                     settings.style.display = "none";
+                } else {
+                    settings.style.display = "flex";
                 }
             }
         </script>

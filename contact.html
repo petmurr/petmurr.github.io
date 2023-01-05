@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philosophical Sects Forum Contact Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact.css">
 </head>
 
 <nav class="navbar">
@@ -18,8 +19,8 @@
         <p>About</p>
     </div>
 
-    <div onclick="location.href='work.html'" id="nav_social" class="nav_s">
-        <p>Work</p>
+    <div onclick="location.href='photos.html'" id="nav_social" class="nav_s">
+        <p>Photos</p>
     </div>
 
     <div onclick="location.href='contact.html'" id="nav_contact" class="nav_s">
@@ -33,6 +34,29 @@
 </nav>
 
 <body>
-    
+    <div class="contactBody">
+        <div id="list">
+            <div id="item1" class="item"><h2>name</h2> <p>Peter Murray</p></div>
+            <div id="item2" class="item"><h2>email</h2> <p>peter@petermurray.net</p></div>
+            <div id="item3" class="item"><h2>age</h2> <p id="timer"></p></div>
+            <div id="item4" class="item"><h2>website</h2> <a href="http://www.petermurray.net">petermurray.net</a></div>
+            <div id="item5" class="item"><h2>linkedin</h2> <a href="https://www.linkedin.com/in/petmurr/">linkedin.com/petmurr</a></div>
+            <div id="item6" class="item"><h2>github</h2> <a href="https://github.com/petmurr">github.com/petmurr</a></div>
+            <div id="item7" class="item"><h2>currently</h2> <p>listening to <a href="https://www.youtube.com/watch?v=skX4FftyT1s">Powerlines</a></div>
+        </div>
+        
+    </div>
 </body>
+
+<script defer>
+    var secondsSince = new Date().getTime() / 1000;
+    var timerVar = setInterval(countTimer, 1000);
+    var totalSeconds = secondsSince - 980208000; // 11,345 days beteween 1 Jan 1970 and 23 Jan 2001
+    function countTimer() {
+            ++totalSeconds;
+            var year = (totalSeconds / 31536000).toFixed(8)
+            document.getElementById("timer").innerHTML = year;
+            }
+</script>
+
 </html>

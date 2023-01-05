@@ -1,0 +1,65 @@
+@import url(style.css);
+
+.contactBody {
+    display: flex;
+    height: 100%;
+    width: 90%;
+    justify-content: center;
+    align-items: center; 
+}
+
+#list {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.contactBody > #list > * {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    min-width: 50vw;
+    flex-grow: 1;
+
+    border-bottom: 1px solid var(--border_color); 
+
+}
+
+.contactBody > #list > .item > p{
+    font-size: 1.2rem;
+}
+
+.contactBody > #list > .item > h2{
+    font-size: 1.5rem;
+}
+
+.contactBody > #list > .item > a, p > a{
+    font-size: 1.2rem;
+    color: #9bd1f4;
+    transition-duration: 0.4s;
+}
+.contactBody > #list > .item > a:hover {
+    font-size: 1.2rem;
+    color: white;
+
+}
+
+#listAbout {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--border_color);
+}
+
+#itemAbout {
+    max-width: 30vw;
+    height: auto; 
+    border-top: 1px solid var(--border_color); 
+}
+
+@media (max-width:700px) {
+    .contactBody {
+        width: 100%;
+    }
+}

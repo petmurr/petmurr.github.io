@@ -2,8 +2,8 @@
 
 import { TILE_STATUSES, createBoard, marktile, revealTile, checkWin, checkLose, } from "./ms_logic.js";
 
-const BOARD_SIZE = 10
-const NUMBER_OF_MINES = 10
+const BOARD_SIZE = 13
+const NUMBER_OF_MINES = 20
 
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES)
 const boardElement = document.querySelector('.board') //place under 'board' class seen in html

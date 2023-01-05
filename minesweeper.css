@@ -13,7 +13,7 @@
     --link_color_bg: #324d5f;
     --link_color: #a7d2ef;
 
-    --box_size: 60px
+    --box_size: 3vw;
 }
 
 .ms_columns {
@@ -43,7 +43,7 @@
     background-color: var(--background_color);
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 20%;
     flex-direction: column;
 }
   
@@ -80,6 +80,7 @@
   
 .board > [data-status="number"] {
     background-color: none;
+    font-size: 2rem;
 }
   
 .board > [data-status="marked"] {
