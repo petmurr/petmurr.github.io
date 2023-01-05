@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophical Sects BLANK Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="formula.css">
+</head>
+
+<nav class="navbar">
+
+    <div onclick="location.href='index.html'" id="nav_logo" class="nav_s">
+        <h2>Peter Murray</h2>
+    </div>
+
+    <div onclick="location.href='about.html'" id="nav_about" class="nav_s">
+        <p>About</p>
+    </div>
+
+    <div onclick="location.href='photos.html'" id="nav_social" class="nav_s">
+        <p>Photos</p>
+    </div>
+
+    <div onclick="location.href='contact.html'" id="nav_contact" class="nav_s">
+        <p>Contact me</p>
+    </div>
+
+    <div onclick="location.href='projects.html'" id="nav_projects" class="nav_s">
+        <p>Projects</p>
+    </div>
+
+</nav>
+
+<body>
+    <div class="formulaBody">
+        <div class="title">
+            <h1>Plotter Art</h1>
+            <h2>A 3D printer is really a fancy 2D printer.</h2>
+        </div>
+        <div class="descbody">
+            <p>To prove it, I modified my 3D printer to draw. Using a 3D printed clamp that uses the print head’s shroud mounts, you can hold a pen that is controllable in 3 axes. I wrote a script in python that converts an SVG image into GCODE, which then can be loaded on the printer. This effectively tells the printer to trace lines, and raise the pen between each line.</p>
+                <p>I used <a href="https://mitxela.com/plotterfun/">mitxela’s “plotterfun” website</a> to convert images to SVGs. His website uses a variety of different algorithms to convert regular images to SVGs. I found the linedraw algorithm provides some of the best results for my plotter- some algorithms, like the subline algorithm, produce too many lines. This requires a more precise plotter to recreate accurately- one of my goals for an improved version.</p>
+        </div>
+        <div id="plotter_photo1" style="background-image: url(plotter_head.jpg);"></div>
+        
+        
+        <div id="plotter_photo2" style="background-image: url(plotter_ref.png);"></div>
+        <div id="plotter_photo2" style="background-image: url(plotter.jpg);"></div>
+        <p>More information and plots to come.</p>
+</html>`
