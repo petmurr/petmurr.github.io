@@ -36,17 +36,23 @@
 <body>
     <div class="formulaBody">
         <div class="title">
-            <h1>Plotter Art</h1>
-            <h2>A 3D printer is really a fancy 2D printer.</h2>
+            <h1>Receiving Satellite Imagery</h1>
+            <h2>(with a PVC pipe and some gardening wire)</h2>
         </div>
         <div class="descbody">
-            <p>To prove it, I modified my 3D printer to draw. Using a 3D printed clamp that uses the print head’s shroud mounts, you can hold a pen that is controllable in 3 axes. I wrote a script in python that converts an SVG image into GCODE, which then can be loaded on the printer. This effectively tells the printer to trace lines, and raise the pen between each line.</p>
-                <p>I used <a href="https://mitxela.com/plotterfun/">mitxela’s “plotterfun” website</a> to convert images to SVGs. His website uses a variety of different algorithms to convert regular images to SVGs. I found the linedraw algorithm provides some of the best results for my plotter- some algorithms, like the subline algorithm, produce too many lines. This requires a more precise plotter to recreate accurately- one of my goals for an improved version.</p>
+            <p>NOAA owns three weather spacecraft, NOAA 15, 18 and 19, that still transmit data that anyone with an antenna can receive. A simple dipole-dipole antenna tuned to 137MHz, as constructed with scrap wood and gardening wire, is capable of receiving the transmission sent by these satellites. I used a NESDR SMArt software-defined radio to collect and decode the signals- these satellites are in polar orbit, so frequently pass overhead.</p>
         </div>
-        <div id="plotter_photo1" style="background-image: url(plotter_head.jpg);"></div>
-        
-        
-        <div id="plotter_photo2" style="background-image: url(plotter_ref.png);"></div>
-        <div id="plotter_photo2" style="background-image: url(plotter.jpg);"></div>
-        <p>More information and plots to come.</p>
-</html>`
+        <div id="satillite_photo1" style="background-image: url(satellite_antennaoutside.jpg);"></div>
+        <div class="descbody">
+            <p>The clearest image I have is the one you see below. I was located in eastern MA when I received the signal, so the image is centered on the US east coast. Can you make out the great lakes? Cape Cod?</p>
+        </div>
+        <div id="satillite_photo2" style="background-image: url(SDRSharp_20180315_201037Z_137100000Hz_AF.jpg);"></div>
+        <div class="descbody">
+            <p>After some manual correction, so it's now upright:</p>
+        </div>
+        <div id="satillite_photo2" style="background-image: url(SDRSharp_20180315_201037Z_137100000Hz_AF_EDIT2.jpg);"></div>
+        <div id="satillite_photo3" style="background-image: url(cape1.jpg);"></div>
+        <div class="descbody">
+            <p>That's me!</p>
+        </div>
+</html>

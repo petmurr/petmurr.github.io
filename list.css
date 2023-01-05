@@ -22,14 +22,16 @@ main > .list > .item {
     width: 100%;
     height: 200px; 
     border-bottom: 1px solid var(--border_color);
-
-    justify-content: center; align-items: center;
+    cursor: pointer;
+    justify-content: center; 
+    align-items: center;
 }
 
+
 main > .list > .item > .item_image {
-    border-radius: 10px;
+    /* border-radius: 10px; */
     height: 100%;
-    width: 500px;
+    width: 30vw;
     overflow: hidden;
     background-position: center;
     justify-content: left;
@@ -47,7 +49,7 @@ main > .list > .item > .item_title {
     padding: 0 2rem;
 }
 
-#item:hover {
+.item:hover {
     background-color: var(--link_color_bg);
     transition-duration: 0.4s;
 }

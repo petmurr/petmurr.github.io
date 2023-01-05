@@ -222,12 +222,18 @@ the full potential of our collective intelligence. */
         grid-template-rows: 2fr 1fr;
     }
 
-    #contactBody {
-        width: 100%;
-    }
-
     .title_text {
         font-size: 6rem;
     }
 
+}
+
+/* tempchart bc where else */
+
+.chart {
+    display: flex;
+    width: 90%; height: 100%;
+    justify-content: center; align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
 }

@@ -5,20 +5,37 @@
     <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <title>tempchart | Peter Murray</title>
 </head>
 
 <body style="background-color:#18252d;">
     
-    <div>
-        <p id="nicetext_nofade">Temp chart.</p>
-    </div>
+    <nav class="navbar">
+
+        <div onclick="location.href='index.html'" id="nav_logo" class="nav_s">
+            <h2>Peter Murray</h2>
+        </div>
+
+        <div onclick="location.href='about.html'" id="nav_about" class="nav_s">
+            <p>About</p>
+        </div>
+
+        <div onclick="location.href='photos.html'" id="nav_social" class="nav_s">
+            <p>Photos</p>
+        </div>
+
+        <div onclick="location.href='contact.html'" id="nav_contact" class="nav_s">
+            <p>Contact me</p>
+        </div>
+
+        <div onclick="location.href='projects.html'" id="nav_projects" class="nav_s">
+            <p>Projects</p>
+        </div>
+
+        </nav>
 
     <div class="chart">
-        <iframe width="1000" height="700" style="background: #21313C;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"  src="https://charts.mongodb.com/charts-project-0-auffq/embed/dashboards?id=631570fb-5555-41d7-822e-7e711303e789&theme=dark&autoRefresh=true&maxDataAge=3600&showTitleAndDesc=false&scalingWidth=fixed&scalingHeight=fixed"></iframe>
+        <iframe border-radius="100px" width="1000px" height="750px" style="border: none; "  src="https://charts.mongodb.com/charts-project-0-auffq/embed/dashboards?id=631570fb-5555-41d7-822e-7e711303e789&theme=dark&autoRefresh=true&maxDataAge=3600&showTitleAndDesc=false&scalingWidth=fixed&scalingHeight=fixed"></iframe>
     </div>
-
-    <div id="fadeButton">
-        <a href="index.html" type="button" class="button2">Home</a>
-      </div>
 
 </body>
