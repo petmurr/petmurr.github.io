@@ -7,6 +7,7 @@
     <title>Contact | Peter Murray</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/segment7" type="text/css"/>
 </head>
 
 <nav class="navbar">
@@ -49,14 +50,20 @@
 </body>
 
 <script defer>
-    var secondsSince = new Date().getTime() / 1000;
-    var timerVar = setInterval(countTimer, 1000);
-    var totalSeconds = secondsSince - 980208000; // 11,345 days beteween 1 Jan 1970 and 23 Jan 2001
+    var timerVar = setInterval(countTimer, 1);
+    const msInYear = 1000*60*60*24*365;
+    const msInMonth = 1000*60*60*24*30.437;
+    const msInDay = 1000*60*60*24;
+    const birthEpoch = (980208000*1000); // 11,345 days beteween 1 Jan 1970 and 23 Jan 2001
+    
     function countTimer() {
-            ++totalSeconds;
-            var year = (totalSeconds / 31536000).toFixed(8)
-            document.getElementById("timer").innerHTML = year;
+            var msSince = new Date().getTime(); // ms since jan 1 1970
+            var msMyLife = msSince - birthEpoch;
+
+            var out = (msMyLife / msInYear).toFixed(8)
+            document.getElementById("timer").innerHTML = out;
             }
+
 </script>
 
 </html>

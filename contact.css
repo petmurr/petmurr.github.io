@@ -29,6 +29,13 @@
 
 .contactBody > #list > .item > p{
     font-size: 1.2rem;
+
+}
+
+.contactBody > #list > .item > #timer {
+    font-family: 'Segment7Standard';
+    font-weight: normal;
+    font-style:italic;
 }
 
 .contactBody > #list > .item > h2{
