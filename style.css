@@ -68,6 +68,10 @@ main > article > .article_desc {
     padding: 1vw
 }
 
+p.mini {
+    font-size: .8rem;
+}
+
 #bottom_text a {
     color: var(--link_color);
     /* border-radius: 5px 5px; */
