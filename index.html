@@ -11,23 +11,28 @@
 
     <nav class="navbar">
         <div onclick="location.href='index.html'" id="nav_logo" class="nav_s">
-            <h2>Peter Murray</h2>
+            <h2>Peter Murray</h2> 
+            <p>I respond to everyone: peter@petermurray.net</p>
         </div>
 
-        <div onclick="location.href='about.html'" id="nav_about" class="nav_s">
-            <p>About</p>
+        <div onclick="setInnerText(1)" id="nav_about" class="nav_s">
+            <p>> Miren, a musical air-raid siren</p>
         </div>
 
-        <div onclick="location.href='photos.html'" id="nav_social" class="nav_s">
-            <p>Photos</p>
+        <div onclick="setInnerText(2)" id="nav_social" class="nav_s">
+            <p>> RRT Motion planning (M)animation</p>
         </div>
 
-        <div onclick="location.href='contact.html'" id="nav_contact" class="nav_s">
-            <p>Contact me</p>
+        <div onclick="setInnerText(3)" id="nav_contact" class="nav_s">
+            <p>> Music I've made</p>
         </div>
 
-        <div onclick="location.href='projects.html'" id="nav_projects" class="nav_s">
-            <p>Projects</p>
+        <div onclick="setInnerText(4)" id="nav_projects" class="nav_s">
+            <p>> Formula Electric 2023</p>
+        </div>
+
+        <div onclick="setInnerText(5)" id="nav_projects" class="nav_s">
+            <p>> High Powered Rocketry Club</p>
         </div>
 
     </nav>
@@ -69,37 +74,57 @@
 
             },
             {
-                name: "FSAE",
-                articleTitle: `<a href="formula.html">FSAE Electric 2023</a> - WPI's Electric Racecar`,
-                articleDesc: `Myself and 19 other students improve and redesign last year's racecar.`,
+                name: "Miren",
+                articleTitle: `<a href="">Miren</a>, an attentive musical siren`,
+                articleDesc: ``,
                 imgSrc: "",
                 // vidSrc: "<img src='fsae.gif'>"
                 vidSrc: "<video muted autoplay src='fsae.webm' type='video/webm'></video>"
             },
             {
-                name: "satellite Imagery",
-                articleTitle: `<a href="satellite.html">Receiving satellite Imagery</a> from NOAA 12, 18 and 19`,
-                articleDesc: `You can build you own antenna to receive old weather satellite's images when they pass overhead.`,
-                imgSrc: "SDRSharp_20180315_201037Z_137100000Hz_AF_EDIT2.jpg",
-                // vidSrc: "<img src='fsae.gif'>"
+                name: "Motion Planning Manimations",
+                articleTitle: `<a href="">Motion Planning Manimations</a> explaining RRT and RRT*`,
+                articleDesc: ``,
+                imgSrc: "",
                 vidSrc: ""
-            }
+            },
+            {
+                name: "Music",
+                articleTitle: `My music`,
+                articleDesc: ``,
+                imgSrc: "",
+                vidSrc: ""
+            },
+            {
+                name: "FSAE",
+                articleTitle: `Formua Electric 2023`,
+                articleDesc: ``,
+                imgSrc: "",
+                vidSrc: ""
+            },
+            {
+                name: "HPRC",
+                articleTitle: `High Powered Rocketry Club`,
+                articleDesc: ``,
+                imgSrc: "",
+                vidSrc: ""
+            },
         ]
 
         function setInnerText(pageNumber) {
             mainTag.innerHTML = `
         <article>
             <div class="article_image asec">
-                <div class="image" style="background-image: url(${json[currentPage].imgSrc});">${json[currentPage].vidSrc}</div>
+                <div class="image" style="background-image: url(${json[pageNumber].imgSrc});">${json[currentPage].vidSrc}</div>
             </div>
             <div class="article_desc asec">
                 <div class="bottom_text" id="bottom_text">
-                    <p>${json[currentPage].articleDesc}</p>
+                    <p>${json[pageNumber].articleDesc}</p>
                 </div>
             </div>
             <div class="article_title asec">
                 <div class="title_text" id="title_text">
-                    <h1>${json[currentPage].articleTitle}</h1>
+                    <h1>${json[pageNumber].articleTitle}</h1>
                 </div>
             </div>
             <div class="article_nav asec">
