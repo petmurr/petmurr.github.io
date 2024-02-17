@@ -8,7 +8,7 @@
     /* --link_color_bg: #324d5f; */
     --link_color: #a7d2ef;
     /* --nav_width: 15rem; */
-    --nav_width: 15vw;
+    --nav_width: 17vw;
 }
 
 h1, h2, h3, a, p, span {
@@ -99,7 +99,7 @@ main > article > .article_title {
 #title_text a {
     background-color: var(--link_color_bg);
     border-radius: 7px 7px;
-    transition-duration: 0.4s;
+    transition-duration: 0.3s;
 }
 #title_text a:hover {
     background-color: var(--background_color);
@@ -150,27 +150,34 @@ main > article > .article_nav > .left, .right {
 /* nav bar */
 nav {
     border-right: 1px solid var(--border_color);
+    display:flex;
+    flex-direction: column;
+    overflow: scroll;
 }
 nav > .nav_s {
     /* display: flex; */
     font-size: 1.2rem;
     padding: 1rem 2rem;
     /* width: 100%; */
-    overflow: hidden;
+    height: auto;
+    /* overflow: hidden; */
     gap: 10vw;
     border-bottom: 1px solid var(--border_color);
     align-items: center;
     justify-content: center;
 }
 
-/* Nav bar */
+/* === Nav bar === */
 
-#nav_logo, #nav_about, #nav_social, #nav_contact, #nav_projects {
+.nav_s {
     cursor: pointer;
     transition-duration: 0.2s;
 }
-#nav_logo:hover, #nav_about:hover, #nav_social:hover, #nav_contact:hover, #nav_projects:hover {
+.nav_s:hover {
     background-color: var(--link_color_bg);
+}
+.nav_s > p {
+    font-size: 1.1rem;
 }
 
 #nav_link {
@@ -179,15 +186,23 @@ nav > .nav_s {
 
 #nav_logo {
     justify-content: flex-start;
-    height: 30vh;
+    /* height: 30vh; */
+    height: 300px;
+}
+#nav_logo > a {
+    background-color: var(--link_color_bg);
+    border-radius: 2px 2px;
+    transition-duration: 0.3s;
+    font-size: 0.9rem;
+}
+#nav_logo > p {
+    font-size: 1rem;
+    margin: 0%;
 }
 
-#nav_logo > h2 {
+/* This is the "Peter Murray" text */
+#nav_logo > h2 { 
     font-size: 2.75rem;
-}
-
-#nav_logo {
-    flex-basis: calc((100% /3) + (100% / 12));
 }
 
 #nav_about, #nav_social, #nav_contact {
@@ -196,4 +211,45 @@ nav > .nav_s {
 
 #nav_projects {
     flex-grow: 1;
+}
+
+/* Hide scrollbar for WebKit browsers */
+.navbar {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.navbar::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+/* MOBLE CENTRIC PROGRAMMING,
+allowing us to tap into the collective consciousness of humanity and access the 
+hidden knowledge and wisdom of the universe.By prioritizing mobile devices, 
+we can harness the power of the interconnectedness of all things and unlock 
+the full potential of our collective intelligence. */
+
+@media (max-width:1400px) {
+    .navbar {
+        width: 25vw;
+    }
+    .nav_s > p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width:800px){
+    .navbar {
+        display: none;
+    }
+
+    main > article {
+        /* display: grid; */
+        grid-template-columns: 66.66vw 33.333vw;
+        grid-template-rows: 2fr 1fr;
+    }
+
+    .title_text {
+        font-size: 6rem;
+    }
+
 }
