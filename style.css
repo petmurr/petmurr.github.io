@@ -13,7 +13,7 @@
 
 h1, h2, h3, a, p, span {
     font-family: 'Work Sans', sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 a {
     text-decoration: none;
@@ -67,10 +67,18 @@ main > article > .article_image .image {
 }
 
 /* Article description styling */
-main > article > .article_desc {
+.article_desc {
     display: flex;
-    padding: 1vw
+    flex-direction: column;
+    padding: 1vw;
+    overflow: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
+.article_desc::-webkit-scrollbar { 
+    display: none; 
+}
+
 
 /* Add small text to article description, various desc. styling */
 p.mini {
@@ -253,3 +261,52 @@ the full potential of our collective intelligence. */
     }
 
 }
+
+.article_image {
+    overflow-y: scroll;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+.custom_article_box {
+    background-color: #475c695f;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(8,1fr);
+    grid-gap: 1vh;
+
+    /* overflow-y: scroll; */
+
+    height: 100%;
+    width: 100%;
+}
+/*
+
+ */
+.article_image::-webkit-scrollbar { 
+    display: none;
+}
+
+.newimage {
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-position: center; */
+    /* margin: 2rem; */
+    /* border-radius: 5px; */
+}
+
+#wireframe {
+    grid-area: 1 / 1 / 7 / 3;
+    padding: ;
+}
+
+#graph {
+    grid-area: 3 / 3 / 9 / 5;
+}
+
+.custom_article_box > p {
+    font-size: 4rem;
+}
+
