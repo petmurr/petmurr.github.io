@@ -101,7 +101,11 @@
                 </p>
                 <p>
                     Though the integration is incomplete, Miren is capable of 'listening' to its environment, be a passing car or a human's whistle, and identify the notes that it hears, and generate a 'continuation' of what it hears with a modified 2nd order Markov chain having been trained on a collection of 10,000 monophonic midi files.
-                </p>`,
+                </p>
+                <p>
+                     Miren uses LoRa to receive to pitch and volume trajectory information over long distances. It's capable of reproducing notes from C3 (~130 Hz) to C6# (1109 Hz) and draws around 250 watts duing quick, high register requests.
+                </p>
+                `,
                 imgSrc: `
                 <div class="custom_article_box">
 
@@ -109,6 +113,9 @@
                     <div class="spacer"></div>
                     <div class="spacer"></div>
                     <div class="newimage"  id=graph style="background-image: url(./miren/large_jump.png)"></div>
+                    <div id="vid">
+                        <video autoplay="" src="RRT0_Intuition.mp4"></video>    
+                    </div>
 
                 </div>
                 `,
@@ -117,15 +124,20 @@
             },
             {
                 name: "Motion Planning Manimations",
-                articleTitle: `<a href="">Motion Planning Manimations</a> explaining RRT and RRT*`,
-                articleDesc: ``,
-                imgSrc: "",
+                articleTitle: `<a href="">Motion Planning Manimations</a> explaining RRT`,
+                articleDesc: `
+                <p>Taking inspiration from 3B1B's <i>Manim</i>- more specifically, <a href="https://www.manim.community/">Manim Community</a>- I created a series of videos that go over the basics of the rapidly exploring random tree, an interesting and fundamental motion planning concept that lacked any beautiful visual representation. </p>
+                <p>With help from my advisor to organize the lession in three steps, we introduce the concept, break down the fundamental steps, and deal with a 'real' example.</p>
+                `,
+                imgSrc: `
+                <video autoplay="" src="RRT0_Intuition.mp4"></video>    
+                `,
                 vidSrc: ""
             },
             {
                 name: "Music",
                 articleTitle: `My music`,
-                articleDesc: ``,
+                articleDesc: `As a multi-dimensional creature, I like to create music and take photos from time to time. I'll be going into more detail in this section soon.`,
                 imgSrc: "",
                 vidSrc: ""
             },
