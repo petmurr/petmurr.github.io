@@ -25,7 +25,7 @@
         </div>
 
         <div onclick="setInnerText(3)" id="nav_music" class="nav_s">
-            <p>> My music</p>
+            <p>> Photos</p>
         </div>
 
         <div onclick="setInnerText(4)" id="nav_kinoplan" class="nav_s">
@@ -104,7 +104,7 @@
                     Though the integration is incomplete, Miren is capable of 'listening' to its environment, be a passing car or a human's whistle, and identify the notes that it hears, and generate a 'continuation' of what it hears with a modified 2nd order Markov chain having been trained on a collection of 10,000 monophonic midi files.
                 </p>
                 <p>
-                     Miren uses LoRa to receive to pitch and volume trajectory information over long distances. It's capable of reproducing notes from C3 (~130 Hz) to C6# (1109 Hz) and draws around 250 watts duing quick, high register requests.
+                     Miren uses LoRa to receive pitch and volume trajectory information over long distances. It's capable of reproducing notes from C3 (~130 Hz) to C6# (1109 Hz) and draws around 250 watts during quick, high register requests.
                 </p>
                 `,
                 imgSrc: `
@@ -169,10 +169,21 @@
                 articleTitle: `High Powered Rocketry Club`,
                 articleDesc: `
                 <p>Helped design, build and debug the sensor board for HPRC's <i>The Stack:</i> a series of four separate PCBs, each dedicated to a key function necessary for our rocket. These four boards communicated with one another over CAN- among them, the <b>power board</b> for power regulation and voltage control, the <b>telemetry board</b> for LoRA radio communication, the <b>controller board</b>, responsible for interfacing with a micomod teensy for state estimation and airbrake control, and the <b>sensor board</b>, a board dedicated to interfacing with an IMU, Barometer, Magnetometer and GPS.</p>
-                <p>This PCB made use of both a 3.3v and 5v pour across a total of four layers. Since we used CAN, each board needed its own CAN controller and tranceiver as well as its own microprocessor- three of the four boards had a dedicated ATMEGA328.. CAN ended up being a large hurdle to both the electronic design team as well as the embedded system team due to the volume of data produced by our post-parsed sensors, which required a great deal of work on the part of </p>
+                <p>This PCB made use of both a 3.3v and 5v pour and is construction from a total of four layers. Since we used CAN, each board needed its own CAN controller and transceiver as well as its own microprocessor- three of the four boards had a dedicated ATMEGA328.. CAN ended up being a large hurdle to both the electronic design team as well as the embedded system team due to the volume of data produced by our post-parsed sensors, which required a great deal of work on the part of </p>
                 <p>This design was eventually scrapped for a much simpler, single board, which removed a huge amount of overhead from our CAN device drivers, reducing the points of failure. However, the stack remains in our hearts. And it looks awesome.</p>
                 `,
-                imgSrc: "",
+                imgSrc: `
+                <div class="hprc_article_box">
+
+                <div class="newimage" id="hprc1" style="background-image: url(./hprc/stack.png)"></div>
+                <div class="newimage"  id="hprc2" style="background-image: url(./hprc/sensorboard_v2_3d.png)"></div>
+                <div class="newimage"  id="hprc3" style="background-image: url(./hprc/sensorboard_v1.png)"></div>
+                <div class="newimage"  id="hprc4" style="background-image: url(./hprc/sensorboard_pcb.png)"></div>
+                <div class="newimage"  id="hprc5" style="background-image: url(./hprc/HPRC_ENP_BlockDiagram.png)"></div>
+                <div class="newimage"  id="hprc6" style="background-image: url(./hprc/sensorboard_v1_debug.jpg)"></div>
+
+                </div>
+                `,
                 vidSrc: ""
             },
         ]

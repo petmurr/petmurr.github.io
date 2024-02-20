@@ -268,16 +268,17 @@ the full potential of our collective intelligence. */
     scrollbar-width: none; 
 }
 
-.custom_article_box {
-    background-color: #475c695f;
+/* MIREN */
+.miren_article_box {
+    /* background-color: #475c695f; */
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(8,1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3,1fr);
     grid-gap: 1vh;
 
     /* overflow-y: scroll; */
 
-    height: 100%;
+    height: 140%;
     width: 100%;
 }
 /*
@@ -298,15 +299,70 @@ the full potential of our collective intelligence. */
 }
 
 #wireframe {
-    grid-area: 1 / 1 / 7 / 3;
-    padding: ;
+    grid-area: 1 / 1 / 3 / 2;
+    /* padding: ;    */
 }
 
 #graph {
-    grid-area: 3 / 3 / 9 / 5;
+    grid-area: 1 / 2 / 3 / 3;
+}
+#vid {
+    grid-area: 3 / 1 / 4 / 3;
+}
+#vid > video {
+    display:block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    pointer-events: visible;
 }
 
-.custom_article_box > p {
+#rrtvid {
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.miren_article_box > p {
     font-size: 4rem;
 }
 
+/* HPRC */
+.hprc_article_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    /* background-color: #475c695f; */
+    height: 150vh;
+    width: 100%;
+}
+    
+#hprc1 { grid-area: 1 / 1 / 2 / 2; }
+#hprc2 { grid-area: 1 / 2 / 2 / 3; }
+#hprc3 { grid-area: 2 / 1 / 3 / 2; }
+#hprc4 { grid-area: 2 / 2 / 3 / 3; }
+#hprc5 { grid-area: 3 / 1 / 4 / 3; } 
+#hprc6 { grid-area: 4 / 1 / 5 / 3; } 
+
+/* KINODYNAMIC */
+
+/* HPRC */
+.kino_article_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    /* background-color: #475c695f; */
+    height: 150vh;
+    width: 100%;
+}
+    
+#kino1 { grid-area: 1 / 1 / 2 / 2; }
+#kino2 { grid-area: 1 / 2 / 2 / 3; }
+#kino3 { grid-area: 2 / 1 / 3 / 3; }
+#kino4 { grid-area: 3 / 1 / 4 / 3; } 
