@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&family=Rokkitt&family=Work+Sans:wght@300&display=swap');
+
+:root {
+    --background_color: #18252d;
+    --border_color: #24424a8d;
+    --link_color_bg: #324d5f;
+    --link_color: #a7d2ef;
+    --nav_width: 15rem;
+}
+
+body {
+    background-color: var(--background_color);
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    margin: 0px;
+    overflow: hidden;
+}
+
+main {
+    flex-basis: calc(100vw - var(--nav_width));
+}
+
+main > article {
+    display: grid;
+    /* This is the culprit */
+    height: 100%;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+}
+
+main > article > .asec {
+    height: 100%;
+}
+main > article > .article_desc, 
+main > article > .article_nav {
+    border-left: 1px solid var(--border_color);
+}
+main > article > .article_nav,
+main > article > .article_title {
+    border-top: 1px solid var(--border_color);
+}
+
+main > article > .article_image .image {
+    height: 100%;
+    background-position: center; 
+    background-size: cover;
+}
+
+/* make stuff compatable with gifs/vids */
+main > article > .article_image img {
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+main > article > .article_image video {
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+main > article > .article_desc {
+    display: flex;
+    padding: 1vw
+}
+
+p.mini {
+    font-size: .8rem;
+}
+
+#bottom_text a {
+    color: var(--link_color);
+    /* border-radius: 5px 5px; */
+    transition-duration: 0.4s;
+}
+#bottom_text a:hover {
+    color: white;
+}
+
+main > article > .article_desc > .bottom_text {
+    align-self: flex-end;
+
+}
+
+main > article > .article_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 10%
+}
+
+#title_text a {
+    background-color: var(--link_color_bg);
+    border-radius: 7px 7px;
+    transition-duration: 0.4s;
+}
+#title_text a:hover {
+    background-color: var(--background_color);
+}
+
+main > article > .article_title > .title_text {
+    font-size: 2vw;
+    line-height: 4vw;
+    /* font-family: 'Work Sans', sans-serif !important; */
+}
+
+/* ARTICLE NAVIGATION LEFT/RIGHT */
+main > article > .article_nav {
+    display: flex;
+    flex-wrap: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    /* padding: flex-basis(100% / 2); */
+}
+
+main > article > .article_nav > .left, .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    transition-duration: 0.4s;
+    font-size: 5vw;
+    cursor: pointer;
+}
+
+#leftright:hover {
+    background-color: var(--link_color_bg);
+}
+
+/* NAV BAR */
+nav {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    min-width: 10vw;
+    flex-basis:var(--nav_width);
+    overflow: hidden;
+    border-right: 1px solid var(--border_color); 
+}
+
+
+nav > .nav_s {
+    display: flex;
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    width: 100%;
+    overflow: hidden;
+    gap: 10vw;
+    border-bottom: 1px solid var(--border_color);
+    align-items: center;
+    justify-content: center;
+}
+
+/* make the nav bar a button bar */
+
+#nav_logo, #nav_about, #nav_social, #nav_contact, #nav_projects {
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+#nav_logo:hover, #nav_about:hover, #nav_social:hover, #nav_contact:hover, #nav_projects:hover {
+    background-color: var(--link_color_bg);
+}
+
+#nav_link {
+    gap: 10vw;
+}
+
+#nav_logo {
+    justify-content: flex-start;
+}
+
+#nav_logo > h2 {
+    font-size: 2.75rem;
+}
+
+#nav_logo {
+    flex-basis: calc((100% / 3) + (100% / 12));
+}
+
+#nav_about, #nav_social, #nav_contact {
+    flex-basis: calc(100% / 12);
+}
+
+#nav_projects {
+    flex-grow: 1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+h1, h2, h3, a, p, span {
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* MOBLE CENTRIC PROGRAMMING,
+allowing us to tap into the collective consciousness of humanity and access the 
+hidden knowledge and wisdom of the universe.By prioritizing mobile devices, 
+we can harness the power of the interconnectedness of all things and unlock 
+the full potential of our collective intelligence. */
+
+@media (max-width:700px){
+    .navbar {
+        display: none;
+    }
+
+    main > article {
+        /* display: grid; */
+        grid-template-columns: 66.66vw 33.333vw;
+        grid-template-rows: 2fr 1fr;
+    }
+
+    .title_text {
+        font-size: 6rem;
+    }
+
+}
+
+/* tempchart bc where else */
+
+.chart {
+    display: flex;
+    width: 90%; height: 100%;
+    justify-content: center; align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+}

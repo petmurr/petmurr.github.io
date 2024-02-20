@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Peter Murray</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div class="custom_article_box">
+
+    <div class="image" id="wireframe" style="background-image: url(./miren/miren_wireframe.png)"></div>
+
+    <div class="image" id=graph style="background-image: url(./miren/large_jump.png)"></div>
+
+    <p>
+        Miren (musical siren), is my attempt at creating a volume and pitch-controllable air-raid siren. It uses the characteristic rotor and stator found in early 20th century sirens, and boasts the volume to match. The entire mechanical construction consists of a frame, rotor, stator, brushless motor and valve to regulate the volume of air entering the siren.
+    </p>
+    <p>
+        Though the complete integration is incomplete, Miren is capable of 'listening' to its environment, be a passing car or a human's whistle, and identify the notes that it hears, and generate a 'continuation' of what it hears with a modified 2nd order Markov chain having been trained on a collection of 10,000 monophonic midi files.
+    </p>
+    <p>
+        Miren uses LoRa to receive to pitch and volume trajectory information over long distances. It's capable of reproducing notes from C3 (~130 Hz) to C6# (1109 Hz) and draws around 250 watts duing quick, high register requests.
+    </p>
+
+</div>
+
+
+</html>
