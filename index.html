@@ -29,7 +29,7 @@
         </div>
 
         <div onclick="setInnerText(4)" id="nav_kinoplan" class="nav_s">
-            <p>> RRT Kinodynamic Planning</p>
+            <p>> Kinodynamic Planning</p>
         </div>
 
         <div onclick="setInnerText(5)" id="nav_fsae" class="nav_s">
@@ -153,15 +153,37 @@
             {
                 name: "Kinodynamic_Planner",
                 articleTitle: `Kinodynamic Planning`,
-                articleDesc: ``,
-                imgSrc: "",
+                articleDesc: `
+                <p>An exercise in the fundamental ideas behind kinodynamic motion planning, myself and two teammates wrote a 1, 2 and 3-link planar manipulator simulator and then created a motion planner by implementing the rapdily expanding random tree algorithm in the context of both joint position <i>and</i> joint torque. </p>
+                <p>Our motion planner was principally made from the robot model, our path bounds (start and goal state), our task space (as defined as obstacle boundaries as stored in a CSV), and a state sampler and collision checker. By generating and applying random torques to your arm, adding each new trajectory to a tree, the hope is to rapidly explore your configuration space while being considerate of your physical actuators. On the left, the second gif visualizes this random torque application.</p>
+                <p>Written entirely in python using an unoptimized RRT algorithm, our implementation was painfully slow. Branches would grow on the scale of minutes. Simulating our arm forward in time based on randomly generated torque values introduced a great deal of extra parameters to tune, and our manhattan distance function's poor performance in higher dimensional space is also to blame.</p>
+                `,
+                imgSrc: `
+                <div class="kino_article_box">
+
+                <div class="newimage" id="kino1" style="background-image: url(./kino/2link.gif)"></div>
+                <div class="newimage"  id="kino2" style="background-image: url(./kino/3link.gif)"></div>
+                <div class="newimage"  id="kino3" style="background-image: url(./kino/RRT.gif)"></div>
+                <div class="newimage"  id="kino4" style="background-image: url(./kino/kinodynamic_blockdiag.png)"></div>
+                
+
+                </div>
+                `,
                 vidSrc: ""
             },
             {
                 name: "FSAE",
                 articleTitle: `Formua Electric 2023`,
-                articleDesc: ``,
-                imgSrc: "",
+                articleDesc: `
+                <p>
+                EV23 is WPI's electric racecar that raced at the 2023 Formula Hybrid + Electric competition, and <a href="https://www.formula-hybrid.org/history/2023">placed third overall</a>. I worked with some incredibly talented engineers, and was a member of battery subteam.</p>
+                <p>Our team was responsible for integrating a more reliable and servicable accumulator. Among my contributions, a redesigned accumulator enclosure responsible for housing our cells  and high voltage components electroncs. We designed and built segment rails to adapt the old segment design into our new enclosure, and creating the fanifold, a fan manifold that can be quickly mounted and unmounted. The new enclosure drastically improves the mechanical support for our segments, and the busbars as mounted to the accumulator's rear panel both reduces the space required and makes our accumulator's disassembly much faster than the year previous.</p>
+                `,
+                imgSrc: `
+                <div class="fsae_article_box">
+                <div class="newimage" id="epic" style="background-image: url(./fsae/fsae_epic.png)"></div>
+                </div>
+                `,
                 vidSrc: "<video muted autoplay src='fsae.webm' type='video/webm'></video>"
             },
             {
@@ -169,8 +191,8 @@
                 articleTitle: `High Powered Rocketry Club`,
                 articleDesc: `
                 <p>Helped design, build and debug the sensor board for HPRC's <i>The Stack:</i> a series of four separate PCBs, each dedicated to a key function necessary for our rocket. These four boards communicated with one another over CAN- among them, the <b>power board</b> for power regulation and voltage control, the <b>telemetry board</b> for LoRA radio communication, the <b>controller board</b>, responsible for interfacing with a micomod teensy for state estimation and airbrake control, and the <b>sensor board</b>, a board dedicated to interfacing with an IMU, Barometer, Magnetometer and GPS.</p>
-                <p>This PCB made use of both a 3.3v and 5v pour and is construction from a total of four layers. Since we used CAN, each board needed its own CAN controller and transceiver as well as its own microprocessor- three of the four boards had a dedicated ATMEGA328.. CAN ended up being a large hurdle to both the electronic design team as well as the embedded system team due to the volume of data produced by our post-parsed sensors, which required a great deal of work on the part of </p>
-                <p>This design was eventually scrapped for a much simpler, single board, which removed a huge amount of overhead from our CAN device drivers, reducing the points of failure. However, the stack remains in our hearts. And it looks awesome.</p>
+                <p>The sensor board made use of both a 3.3v and 5v pour and is made of a total of four layers. Since we used CAN, each board needed its own CAN controller and transceiver as well as its own microprocessor- three of the four boards had a dedicated ATMEGA328. CAN ended up being a large hurdle to both the electronics design team as well as the embedded system team due to the volume of data produced by our sensors after parsing the data, which required a great deal of work to send correctly. </p>
+                <p>This design was eventually scrapped for a much simpler, single board, which removed a huge amount of overhead from our CAN device drivers, and never got to fly. However, the stack remains in our hearts. And it looks awesome.</p>
                 `,
                 imgSrc: `
                 <div class="hprc_article_box">
@@ -252,7 +274,7 @@
         }
 
 
-        setInnerText(6)
+        setInnerText(0)
 
 
     </script>
