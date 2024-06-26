@@ -39,6 +39,10 @@
             <p>> High Powered Rocketry Club</p>
         </div>
 
+        <div onclick="setInnerText(7)" id="nav_wasm" class="nav_s">
+            <p>> webassembly, imgui test</p>
+        </div>
+
     </nav>
 
     <main id="main" />
@@ -215,6 +219,26 @@
                 `,
                 vidSrc: ""
             },
+            {
+                name: "WASM",
+                articleTitle: `Testing wasm and imgui`,
+                articleDesc: `
+                <p>
+                Hello. This is the articleDesc.</p>
+                <p>Our team was responsible for integrating ... </p>
+                `,
+                imgSrc: `
+                <div class="fsae_article_box">
+                <div class="newimage" id="fsae1" style="background-image: url(./fsae/fsae_epic.png)"></div>
+                <div class="newimage" id="fsae2" style="background-image: url(./fsae/busbars.png)"></div>
+                <div class="newimage" id="fsae3" style="background-image: url(./fsae/segment_rails.png)"></div>
+                <div class="newimage" id="fsae4" style="background-image: url(./fsae/segment_render.png)"></div>
+                <div class="newimage" id="fsae5" style="background-image: url(./fsae/fanifoldrender.png)"></div>
+                <div class="newimage" id="fsae6" style="background-image: url(./fsae/fanifold.png)"></div>
+                </div>
+                `,
+                vidSrc: "<video muted autoplay src='fsae.webm' type='video/webm'></video>"
+            },
         ]
 
         function setInnerText(pageNumber) {
@@ -261,6 +285,9 @@
                 case 6:
                     changeColor("nav_hprc");
                     break;
+                case 7:
+                    changeColor("nav_wasm");
+                    break;
                 default:
                     changeColor("lolol");
             }
@@ -268,7 +295,7 @@
         }
 
         function changeColor(targetId) {
-            var ids = ["nav_armgui", "nav_manim", "nav_miren", "nav_kinoplan", "nav_fsae", "nav_hprc"];
+            var ids = ["nav_armgui", "nav_manim", "nav_miren", "nav_kinoplan", "nav_fsae", "nav_hprc", "nav_wasm"];
 
             ids.forEach(function(id) {
                 var div = document.getElementById(id);
