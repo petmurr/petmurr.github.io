@@ -15,16 +15,16 @@
             <a>peter@petermurray.net</a>
         </div>
 
-        <div onclick="setInnerText(1)" id="nav_miren" class="nav_s">
-            <p>> Miren, a musical air-raid siren</p>
+        <div onclick="setInnerText(1)" id="nav_armgui" class="nav_s">
+            <p>> Robot arm GUI</p>
         </div>
 
         <div onclick="setInnerText(2)" id="nav_manim" class="nav_s">
-            <p>> Explainatory Motion planning (M)animations</p>
+            <p>> Motion Planning Animations</p>
         </div>
 
-        <div onclick="setInnerText(3)" id="nav_music" class="nav_s">
-            <p>> Photos</p>
+        <div onclick="setInnerText(3)" id="nav_miren" class="nav_s">
+            <p>> Musical Air Raid Siren</p>
         </div>
 
         <div onclick="setInnerText(4)" id="nav_kinoplan" class="nav_s">
@@ -72,7 +72,7 @@
             {
                 name: "home",
                 articleTitle: `
-                Explore my <a onclick="setInnerText(3)")>photos</a> & <a onclick="setInnerText(1)">projects</a>, take a look at my <a href="Peter_Murray_Resume_2024.pdf">resume</a>, or just play a game of <a href="minesweeper.html">minesweeper</a>.
+                Explore my <a onclick="setInnerText(1)">projects</a>, take a look at my <a href="Peter_Murray_Resume_2024.pdf">resume</a>, or just play a game of <a href="minesweeper.html">minesweeper</a>.
                 `,
 
                 articleDesc: `
@@ -91,6 +91,36 @@
                 vidSrc: ""
 
             },
+            {
+                name: "Armgui",
+                articleTitle: `Armgui`,
+                articleDesc: `Armgui is a user interface written in C++ with Dear ImGui, an immediate-mode GUI library. Armgui was built to both test and create an easier way to get familiar with the OpenManipulatorX, a small scale robotic manipulator. It is written for both Windows and Linux as a standalone application.`,
+                imgSrc: `
+                    <div class="image" id="quack" style="background-image: url(./armgui/connected_v0.6.png)"></div>
+                   `,
+                vidSrc: ""
+            },
+            {
+                name: "Motion Planning Manimations",
+                articleTitle: `<a href="Motion_Planning_ISP-1.pdf">Motion Planning Manimations</a> explaining RRT`,
+                articleDesc: `
+                <p><a href="Motion_Planning_ISP-1.pdf">Read the report here.</a></p>
+                <p>Motion planning is a uniquely visual field of robotics whose
+                fundamental ideas are inherently spatial and geometric in
+                nature. Here, I've animated two core ideas- <a>the configuration space</a> and the RRT algorithm.</p>
+                <p>Taking inspiration from 3B1B's <i>Manim</i>- more specifically, <a href="https://www.manim.community/">Manim Community</a>- I created a series of videos that go over the basics of the rapidly exploring random tree, an interesting and fundamental motion planning concept that lacked any beautiful visual representation. </p>
+                <p>With help from my advisor to organize the lession in three steps, we introduce the concept, break down the fundamental steps, and deal with a 'real' example.</p>
+                <p>These videos implement the key animations that can be split into segments and used within a lecture, but you can watch them here if you like!</p>
+                <p>Part 0: RRT Intuition (currently playing to the left)</p>
+                <p><a href="RRT1_Basics.mp4">Watch Part 1: RRT Basics</a></p>
+                <p><a href="RRT2_Application.mp4">Watch Part 2: RRT Application</a> (currently has a glitch- will be fixed.)</p>
+                `,
+                imgSrc: `
+                <video id="rrtvid" autoplay="" loop="" src="RRT0_Intuition.mp4"></video>    
+                `,
+                vidSrc: ""
+            },
+            
             {
                 name: "Miren",
                 articleTitle: `<a href="Miren_Musical_Robot_Final_Paper.pdf">Miren</a>, an attentive musical siren`,
@@ -120,35 +150,6 @@
                 </div>
                 `,
                 // vidSrc: "<img src='fsae.gif'>"
-                vidSrc: ""
-            },
-            {
-                name: "Motion Planning Manimations",
-                articleTitle: `<a href="Motion_Planning_ISP-1.pdf">Motion Planning Manimations</a> explaining RRT`,
-                articleDesc: `
-                <p><a href="Motion_Planning_ISP-1.pdf">Read the report here.</a></p>
-                <p>Motion planning is a uniquely visual field of robotics whose
-                fundamental ideas are inherently spatial and geometric in
-                nature. Here, I've animated two core ideas- <a>the configuration space</a> and the RRT algorithm.</p>
-                <p>Taking inspiration from 3B1B's <i>Manim</i>- more specifically, <a href="https://www.manim.community/">Manim Community</a>- I created a series of videos that go over the basics of the rapidly exploring random tree, an interesting and fundamental motion planning concept that lacked any beautiful visual representation. </p>
-                <p>With help from my advisor to organize the lession in three steps, we introduce the concept, break down the fundamental steps, and deal with a 'real' example.</p>
-                <p>These videos implement the key animations that can be split into segments and used within a lecture, but you can watch them here if you like!</p>
-                <p>Part 0: RRT Intuition (currently playing to the left)</p>
-                <p><a href="RRT1_Basics.mp4">Watch Part 1: RRT Basics</a></p>
-                <p><a href="RRT2_Application.mp4">Watch Part 2: RRT Application</a> (currently has a glitch- will be fixed.)</p>
-                `,
-                imgSrc: `
-                <video id="rrtvid" autoplay="" loop="" src="RRT0_Intuition.mp4"></video>    
-                `,
-                vidSrc: ""
-            },
-            {
-                name: "Photos",
-                articleTitle: `Photos`,
-                articleDesc: `I like to take photos from time to time. I'll be going into more detail in this section soon.`,
-                imgSrc: `
-                    <div class="image" id="quack" style="background-image: url(./photos/quack_placeholder.png)"></div>
-                   `,
                 vidSrc: ""
             },
             {
@@ -243,13 +244,13 @@
             // Change the color to indicate which page you're on
             switch (pageNumber) {
                 case 1:
-                    changeColor("nav_miren");
+                    changeColor("nav_armgui");
                     break;
                 case 2:
                     changeColor("nav_manim");
                     break;
                 case 3:
-                    changeColor("nav_music");
+                    changeColor("nav_miren");
                     break;
                 case 4:
                     changeColor("nav_kinoplan");
@@ -267,7 +268,7 @@
         }
 
         function changeColor(targetId) {
-            var ids = ["nav_miren", "nav_manim", "nav_music", "nav_kinoplan", "nav_fsae", "nav_hprc"];
+            var ids = ["nav_armgui", "nav_manim", "nav_miren", "nav_kinoplan", "nav_fsae", "nav_hprc"];
 
             ids.forEach(function(id) {
                 var div = document.getElementById(id);
