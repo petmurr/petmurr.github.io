@@ -30,6 +30,32 @@
             -ms-interpolation-mode: nearest-neighbor;
         }
     </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>Dear ImGui Emscripten example</title>
+    <style>
+        /* body { margin: 0; background-color: rgba(0, 0, 0, 0) } */
+        /* FIXME: with our GLFW example this block seems to break resizing and io.DisplaySize gets stuck */
+        .emscripten {
+            /* position: absolute; */
+            top: 0px;
+            left: 0px;
+            margin: 0px;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: block;
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+    </style>
 </head>
 
 <body>
@@ -285,7 +311,7 @@
                 <p>Our team was responsible for integrating ... </p>
                 `,
                 imgSrc: `
-                        <iframe src="./wasm/index.html" class="emscripten-iframe" id="iframe" style="width:100%; height:100%; border:none;"></iframe>
+                        <iframe src="./wasm_test/index.html" class="emscripten-iframe" id="iframe" style="width:100%; height:100%; border:none;"></iframe>
                         `,
                 vidSrc: ""
             },
@@ -347,7 +373,7 @@
            
 
         function changeColor(targetId) {
-            var ids = ["nav_armgui", "nav_manim", "nav_miren", "nav_kinoplan", "nav_fsae", "nav_hprc", "nav_wasm"];
+            var ids = ["nav_armgui", "nav_manim", "nav_miren", "nav_kinoplan", "nav_fsae", "nav_hprc", "nav_wasm", "nav_wasm"];
 
             ids.forEach(function(id) {
                 var div = document.getElementById(id);
