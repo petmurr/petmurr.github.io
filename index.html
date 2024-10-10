@@ -67,32 +67,32 @@
             <a>peter@petermurray.net</a>
         </div>
 
-        <div onclick="setInnerText(1)" id="nav_armgui" class="nav_s">
-            <p>> Robot arm GUI</p>
-        </div>
-
-        <div onclick="setInnerText(2)" id="nav_manim" class="nav_s">
-            <p>> Motion Planning Animations</p>
-        </div>
-
-        <div onclick="setInnerText(3)" id="nav_miren" class="nav_s">
-            <p>> Musical Air Raid Siren</p>
-        </div>
-
-        <div onclick="setInnerText(4)" id="nav_kinoplan" class="nav_s">
-            <p>> Kinodynamic Planning</p>
+        <div onclick="setInnerText(7)" id="nav_wasm" class="nav_s">
+            <p>> Interactive Reaction Wheel Simulation</p>
         </div>
 
         <div onclick="setInnerText(5)" id="nav_fsae" class="nav_s">
             <p>> Formula Electric 2023</p>
         </div>
 
+        <div onclick="setInnerText(2)" id="nav_manim" class="nav_s">
+            <p>> Motion Planning Animations</p>
+        </div>
+
+        <div onclick="setInnerText(1)" id="nav_armgui" class="nav_s">
+            <p>> Robot arm GUI</p>
+        </div>
+
+        <div onclick="setInnerText(3)" id="nav_miren" class="nav_s">
+            <p>> Musical Air Raid Siren</p>
+        </div>
+
         <div onclick="setInnerText(6)" id="nav_hprc" class="nav_s">
             <p>> High Powered Rocketry Club</p>
         </div>
 
-        <div onclick="setInnerText(7)" id="nav_wasm" class="nav_s">
-            <p>> Interactive Reaction Wheel Simulation</p>
+        <div onclick="setInnerText(4)" id="nav_kinoplan" class="nav_s">
+            <p>> Kinodynamic Planning</p>
         </div>
 
     </nav>
@@ -131,30 +131,47 @@
     </script>
 
     <script defer>
+        
+        // change the page order here, index in json stays the same, just rearrange the mapping and check your work
+        // this doesnt need to be a dict
+        // oh and you should rearrange navbar, I don't want to rewrite it it's not too bad
+        const json2pageorder = {
+            0: 0,   // home
+            1: 7,   // wasm/irwp
+            2: 5,   // fsae
+            3: 2,   // manim/rrt
+            4: 1,   // armgui
+            5: 3,   // miren
+            6: 6,   // hprc
+            7: 4    // kinoplan
+        };
+
         const mainTag = document.getElementById("main")
         let currentPage = 0
 
         function switchLeft() {
             if (currentPage - 1 < 0) {
-                currentPage = json.length - 1
+                currentPage = json.length - 1;
+                setInnerText(json2pageorder[currentPage]);
             } else {
                 currentPage--
+                setInnerText(json2pageorder[currentPage])
             }
-            // REMOVE 
-            setInnerText(currentPage)
         }
 
         function switchRight() {
             if (currentPage + 1 > json.length - 1) {
                 currentPage = 0
+                setInnerText(json2pageorder[currentPage]);
             } else {
                 currentPage++
+                setInnerText(json2pageorder[currentPage]);
             }
-            setInnerText(currentPage)
+            
         }
 
         const json = [
-            // home
+            // 0 home
             {
                 name: "home",
                 articleTitle: `
@@ -177,7 +194,7 @@
                 vidSrc: ""
 
             },
-            // nav_armgui
+            // 1 nav_armgui
             {
                 name: "Armgui",
                 articleTitle: `Armgui`,
@@ -194,7 +211,7 @@
                    `,
                 vidSrc: ""
             },
-            // nav_manim
+            // 2 nav_manim
             {
                 name: "Motion Planning Manimations",
                 articleTitle: `Motion Planning Manimations explaining RRT`,
@@ -223,7 +240,7 @@
                 `,
                 vidSrc: ""
             },
-            // nav_miren
+            // 3 nav_miren
             {
                 name: "Miren",
                 articleTitle: `Miren, an attentive musical siren`,
@@ -253,7 +270,7 @@
                 // vidSrc: "<img src='fsae.gif'>"
                 vidSrc: ""
             },
-            // nav_kinoplan
+            // 4 nav_kinoplan
             {
                 name: "Kinodynamic_Planner",
                 articleTitle: `Kinodynamic Planning`,
@@ -281,7 +298,7 @@
                 `,
                 vidSrc: ""
             },
-            // nav_fsae
+            // 5 nav_fsae
             {
                 name: "FSAE",
                 articleTitle: `Formula Electric 2023`,
@@ -305,7 +322,7 @@
                 `,
                 vidSrc: "<video muted autoplay src='fsae.webm' type='video/webm'></video>"
             },
-            // nav_hprc
+            // 6 nav_hprc
             {
                 name: "HPRC",
                 articleTitle: `High Powered Rocketry Club`,
@@ -334,7 +351,7 @@
                 `,
                 vidSrc: ""
             },
-            // nav_wasm
+            // 7 nav_wasm
             {
                 name: "WASM",
                 articleTitle: `Inverted Reaction Wheel Pendulum Simulation`,
@@ -414,8 +431,7 @@
                 "nav_kinoplan", 
                 "nav_fsae", 
                 "nav_hprc", 
-                "nav_wasm", 
-                "nav_wasm"];
+                "nav_wasm",];
 
             ids.forEach(function(id) {
                 var div = document.getElementById(id);
