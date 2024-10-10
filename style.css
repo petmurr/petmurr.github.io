@@ -76,10 +76,10 @@ main > article > .article_image .image {
     -ms-overflow-style: none; 
     scrollbar-width: none; 
 }
+
 .article_desc::-webkit-scrollbar { 
     display: none; 
 }
-
 
 /* Add small text to article description, various desc. styling */
 p.mini {
@@ -87,6 +87,7 @@ p.mini {
 }
 main > article > .article_desc > .bottom_text {
     align-self: flex-end;
+    
 }
 #bottom_text a {
     color: var(--link_color);
