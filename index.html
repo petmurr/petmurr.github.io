@@ -131,7 +131,11 @@
             {
                 name: "home",
                 articleTitle: `
+<<<<<<< HEAD
                 Explore my <a onclick="setInnerText(1)">projects</a>, take a look at my <a href="Peter_Murray_Resume_2024.pdf">resume</a>, or just play a game of <a href="minesweeper.html">minesweeper</a>.
+=======
+                Click ">" to scroll through my <a onclick="setInnerText(1)">projects</a>, take a look at my <a href="Peter_Murray_Resume_2024.pdf">resume</a>, or just play a game of <a href="minesweeper.html">minesweeper</a>.
+>>>>>>> e87b903 (move miren pdf)
                 `,
 
                 articleDesc: `
@@ -184,9 +188,9 @@
                 name: "Miren",
                 articleTitle: `<a href="Miren_Musical_Robot_Final_Paper.pdf">Miren</a>, an attentive musical siren`,
                 articleDesc: `
-                <p><a href="Miren_Musical_Robot_Final_Paper.pdf">Read the report here.</a></p>
+                <p><a href="miren/Miren_Musical_Robot_Final_Paper.pdf">Read the report here.</a></p>
                 <p>
-                    Miren (musical siren), is my attempt at creating a volume and pitch-controllable air-raid siren. It uses the characteristic rotor and stator found in early 20th century sirens, and boasts the volume to match. The entire mechanical construction consists of a frame, rotor, stator, brushless motor and valve to regulate the volume of air entering the siren.
+                    Miren (musical siren), is a volume and pitch-controllable air-raid siren. It uses the characteristic rotor and stator found in early 20th century sirens, and boasts the volume to match. The entire mechanical construction consists of a frame, rotor, stator, brushless motor and valve to regulate the volume of air entering the siren.
                 </p>
                 <p>
                     Though the integration is incomplete, Miren is capable of 'listening' to its environment, be a passing car or a human's whistle, and identify the notes that it hears, and generate a 'continuation' of what it hears with a modified 2nd order Markov chain having been trained on a collection of 10,000 monophonic midi files.
@@ -197,15 +201,13 @@
                 `,
                 imgSrc: `
                 <div class="miren_article_box">
-
+                    <div id="vid">
+                        <video controls="" src="miren_demo.mov"></video>    
+                    </div>
                     <div class="newimage" id="wireframe" style="background-image: url(./miren/miren_wireframe.png)"></div>
                     <div class="spacer"></div>
                     <div class="spacer"></div>
                     <div class="newimage"  id=graph style="background-image: url(./miren/large_jump.png)"></div>
-                    <div id="vid">
-                        <video controls="" src="miren_demo.mov"></video>    
-                    </div>
-
                 </div>
                 `,
                 // vidSrc: "<img src='fsae.gif'>"
@@ -283,7 +285,7 @@
                 <p>Our team was responsible for integrating ... </p>
                 `,
                 imgSrc: `
-                        <iframe src="./wasm_test/index.html" class="emscripten-iframe" id="iframe" style="width:100%; height:100%; border:none;"></iframe>
+                        <iframe src="./wasm/index.html" class="emscripten-iframe" id="iframe" style="width:100%; height:100%; border:none;"></iframe>
                         `,
                 vidSrc: ""
             },
