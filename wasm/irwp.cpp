@@ -1,9 +1,10 @@
-#pragma once
+#include <stdio.h>
 #include "irwp.h"
 #include "pendulum.h"
 #include "implot/implot/implot.h"
 
 #define PI 3.14159265358979323846f
+// #define RAND_MAX 400
 
 // ImVec2 calcPendd(float &theta, float pendLen) {   
 //     float x = pendLen * cos(theta + 1.5708);
@@ -120,7 +121,7 @@ void updateIrwp(float deltaTime,
 void showIrwp(ImGuiIO& io) {
     {
         // make full screen
-        static bool use_work_area = true;
+        // static bool use_work_area = true;
         // static ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
 
         // const ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -144,8 +145,9 @@ void showIrwp(ImGuiIO& io) {
 
         // Add sliders to make the simulation interactive
         ImGui::Begin("Controls");
-            ImGui::SliderFloat("pendulum angle (adjust this!)", &theta_p, -2.0f, 0.0f, "%.2f rad");
+            
             ImGui::BeginDisabled(true);
+            ImGui::SliderFloat("pendulum angle", &theta_p, -2.0f, 0.0f, "%.2f rad");
             // ImGui::SliderFloat("wheel angle", &theta_w, -100.0f, 100.0f, "%.2f rad");
             // ImGui::SliderFloat("pendulum length", &L_p, 0.1f, 5.0f, "%.2f m");
             // ImGui::SliderFloat("pendulum inertia", &I_p, 0.1f, 5.0f, "%.2f kg/m2");
@@ -165,14 +167,14 @@ void showIrwp(ImGuiIO& io) {
         // Draw pendulum shapes
         ImGui::Begin("drawing");
 
-            // establish colors
+            // define colors
             const ImU32 col = IM_COL32(190, 200, 200, 255);     // generic white for contrast, frame
             const ImU32 col_red = IM_COL32(255, 20, 6, 255);    // red, for wheel orientation
 
             ImDrawList* draw_list = ImGui::GetWindowDrawList(); // needed to draw simple shapes
             const ImVec2 p = ImGui::GetCursorScreenPos();   
             
-            ImVec2 dCenter = ImVec2(p.x + (ImGui::GetWindowWidth() * 0.5f), p.y + (ImGui::GetWindowHeight() * 0.6f));
+            ImVec2 dCenter = ImVec2(p.x + (ImGui::GetWindowWidth() * 0.5f), p.y + (ImGui::GetWindowHeight() * 0.5f));
             static float thickness = 6.0f;
 
             // Calculate where the end of the pendulum (x,y coords) should be placed
@@ -191,10 +193,46 @@ void showIrwp(ImGuiIO& io) {
             draw_list->AddCircleFilled(dPos_p, 5.0f, col);
             draw_list->AddCircle(dPos_p, L_w*100, col, 0, thickness);
 
+            // add disturbance button(s)
+            int button_w = 100; // button width
+            int button_h = 100; // button height
+            float random_rad_nudge_max = (PI/4) * .2; // maximum random 'nudge' to add to pendulum angle (rad)
+
+            // For the LEFT button, to nudge RIGHT
+            static float nudge = 0;
+            ImGui::SetCursorScreenPos(ImVec2(   p.x + (ImGui::GetWindowWidth() * 0.25f) - (button_w/2), 
+                                                p.y + (ImGui::GetWindowHeight() * 0.6f) - (button_h/2)));
+            if (ImGui::Button("nudge ->", ImVec2(button_w, button_h))) {
+                nudge = (static_cast<double>(std::rand()) / RAND_MAX) * random_rad_nudge_max;
+                // printf("\nnudged");
+            }
+
+            // For the RIGHT button, to nudge LEFT
+            ImGui::SetCursorScreenPos(ImVec2(   p.x + (ImGui::GetWindowWidth() * 0.75f) - (button_w/2), 
+                                                p.y + (ImGui::GetWindowHeight() * 0.6f) - (button_h/2)));
+            if (ImGui::Button("<- nudge", ImVec2(button_w, button_h))) {
+                nudge = -(static_cast<double>(std::rand()) / RAND_MAX) * random_rad_nudge_max;
+                // printf("\nnudged");
+            }
+
+            // initiate nudging
+            theta_p += nudge;
+
+            if (nudge > 0) {
+                nudge -= 0.01;
+            } else if (nudge < 0) {
+                nudge += 0.01;
+            } 
+            if (nudge < 0.02){
+                if (nudge > -0.02) {
+                    nudge = 0;
+                }
+            }
+
             // show the people you're cool by printing the framerate
-            ImVec2 windowSize = ImGui::GetWindowSize();
-            ImGui::SetCursorPos(ImVec2(0, windowSize.y - ImGui::GetFontSize() - ImGui::GetStyle().FramePadding.y * 2));
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            // ImVec2 windowSize = ImGui::GetWindowSize();
+            // ImGui::SetCursorPos(ImVec2(0, windowSize.y - ImGui::GetFontSize() - ImGui::GetStyle().FramePadding.y * 2));
+            // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
         ImGui::End();
 
@@ -222,7 +260,7 @@ void showIrwp(ImGuiIO& io) {
             if (ImPlot::BeginPlot("##Scrolling", ImVec2(-1,-1), ImPlotFlags_NoLegend)) {
                 
                 // setup axes 
-                ImPlot::SetupAxes("theta_p", "theta_p_d");
+                ImPlot::SetupAxes("pendulum angle (rad)", "pendulum angular vel (rad/s)");
                 ImPlot::SetupAxisLimits(ImAxis_X1,-4, 1);
                 ImPlot::SetupAxisLimits(ImAxis_Y1,-15, 10);
                 
@@ -266,9 +304,9 @@ void showIrwp(ImGuiIO& io) {
             if (ImPlot::BeginPlot("##Scrolling", ImVec2(-1,-1), ImPlotFlags_NoLegend)) {
 
                 // setup axes
-                ImPlot::SetupAxes("theta_p", "theta_p_d");
+                ImPlot::SetupAxes("wheel angle (rad)", "wheel angular vel (rad/s)");
                 ImPlot::SetupAxisLimits(ImAxis_X1,-6, 24);
-                ImPlot::SetupAxisLimits(ImAxis_Y1,-10, 10);
+                ImPlot::SetupAxisLimits(ImAxis_Y1,-15, 15);
 
                 // plot point
                 ImPlot::SetNextMarkerStyle(ImPlotMarker_Circle, mk_size, mk_col_blue, mk_weight, mk_col_blue);
@@ -298,8 +336,5 @@ void showIrwp(ImGuiIO& io) {
         updateIrwp(deltaTime, theta_p, theta_w, theta_p_d, theta_w_d, m_p, m_w, I_w, I_p, g, L_p, L_w, t);
         // }
 
-        
-
-        // ImGui::End();
     }
 }
