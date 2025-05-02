@@ -1,498 +1,505 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <title>Peter Murray</title>
     <link rel="stylesheet" href="style.css">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
-    <title>Dear ImGui Emscripten example</title>
-    <style>
-        /* body { margin: 0; background-color: rgba(0, 0, 0, 0) } */
-        /* FIXME: with our GLFW example this block seems to break resizing and io.DisplaySize gets stuck */
-        .emscripten {
-            /* position: absolute; */
-            top: 0px;
-            left: 0px;
-            margin: 0px;
-            border: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            display: block;
-            image-rendering: optimizeSpeed;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -o-crisp-edges;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            -ms-interpolation-mode: nearest-neighbor;
-        }
-    </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
-    <title>Dear ImGui Emscripten example</title>
-    <style>
-        /* body { margin: 0; background-color: rgba(0, 0, 0, 0) } */
-        /* FIXME: with our GLFW example this block seems to break resizing and io.DisplaySize gets stuck */
-        .emscripten {
-            /* position: absolute; */
-            top: 0px;
-            left: 0px;
-            margin: 0px;
-            border: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            display: block;
-            image-rendering: optimizeSpeed;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -o-crisp-edges;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            -ms-interpolation-mode: nearest-neighbor;
-        }
-    </style>
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J1RD3TDRJT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-J1RD3TDRJT');
-
-</script>
-
 <body>
+    <!-- All info appears in #content -->
+    <div id="content">
+        <nav>
+            <div onclick="location.href='index.html'" id="nav_logo">
+                <h2>Peter Murray</h2> 
+                <!-- <p>Aspiring robotics engineer</p> -->
+            </div>
+            <div onclick="setInnerText(7)" id="nav_wasm" class="project" style="background-image: url(./irwp/thumbnail2.png);">
+                <p> Interactive Reaction Wheel Pendulum</p>
+            </div>
 
+            <div onclick="setInnerText(5)" id="nav_fsae" class="project" style="background-image: url(./fsae/fsae_epic.png);">
+                <p>Formula Electric</p>
+            </div>
 
-    <nav class="navbar">
-        <div onclick="location.href='index.html'" id="nav_logo" class="nav_s">
-            <h2>Peter Murray</h2> 
-            <a>peter@petermurray.net</a>
-        </div>
+            <div onclick="setInnerText(2)" id="nav_manim" class="project" style="background-image: url(./rrt/thumbnail.png);">
+                <p>Motion Planning Animations</p>
+            </div>
 
-        <div onclick="setInnerText(7)" id="nav_wasm" class="nav_s">
-            <p>> Interactive Reaction Wheel Simulation</p>
-        </div>
+            <div onclick="setInnerText(1)" id="nav_armgui" class="project" style="background-image: url(./armgui/thumbnail.png);">
+                <p>Robot Arm GUI</p>
+            </div>
 
-        <div onclick="setInnerText(5)" id="nav_fsae" class="nav_s">
-            <p>> Formula Electric 2023</p>
-        </div>
+            <!-- <div onclick="setInnerText(3)" id="nav_miren" class="project" style="background-image: url(./miren/thumbnail.png);">
+                <p>Musical Air Raid Siren</p>
+            </div> -->
 
-        <div onclick="setInnerText(2)" id="nav_manim" class="nav_s">
-            <p>> Motion Planning Animations</p>
-        </div>
+            <!-- <div onclick="setInnerText(6)" id="nav_hprc" class="project" style="background-image: url(./hprc/sensorboard_pcb.png);">
+                <p>High Powered Rocketry Club</p>
+            </div> -->
 
-        <div onclick="setInnerText(1)" id="nav_armgui" class="nav_s">
-            <p>> Robot arm GUI</p>
-        </div>
+            <!-- <div onclick="setInnerText(4)" id="nav_kinoplan" class="project" style="background-image: url(./kino/thumbnail.png);">
+                <p>Kinodynamic Planning</p>
+            </div> -->
 
-        <div onclick="setInnerText(3)" id="nav_miren" class="nav_s">
-            <p>> Musical Air Raid Siren</p>
-        </div>
+        </nav>
 
-        <div onclick="setInnerText(6)" id="nav_hprc" class="nav_s">
-            <p>> High Powered Rocketry Club</p>
-        </div>
-
-        <div onclick="setInnerText(4)" id="nav_kinoplan" class="nav_s">
-            <p>> Kinodynamic Planning</p>
-        </div>
-
-    </nav>
-
-    <main id="main" />
-
-    <script type='text/javascript'>
-        var Module = {
-          preRun: [],
-          postRun: [],
-          print: (function() {
-              return function(text) {
-                  text = Array.prototype.slice.call(arguments).join(' ');
-                  console.log(text);
-              };
-          })(),
-          printErr: function(text) {
-              text = Array.prototype.slice.call(arguments).join(' ');
-              console.error(text);
-          },
-          canvas: (function() {
-              var canvas = document.getElementById('canvas');
-              //canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
-              return canvas;
-          })(),
-          setStatus: function(text) {
-              console.log("status: " + text);
-          },
-          monitorRunDependencies: function(left) {
-              // no run dependencies to log
-          }
-        };
-        window.onerror = function() {
-          console.log("onerror: " + event);
-        };
-    </script>
-
-    <script defer>
         
-        // change the page order here, index in json stays the same, just rearrange the mapping and check your work
-        // this doesnt need to be a dict
-        // oh and you should rearrange navbar, I don't want to rewrite it it's not too bad
-        const json2pageorder = {
-            0: 0,   // home
-            1: 7,   // wasm/irwp
-            2: 5,   // fsae
-            3: 2,   // manim/rrt
-            4: 1,   // armgui
-            5: 3,   // miren
-            6: 6,   // hprc
-            7: 4    // kinoplan
-        };
 
-        const mainTag = document.getElementById("main")
-        let currentPage = 0
+        <div id="article" class="flex_auto">
 
-        function switchLeft() {
-            if (currentPage - 1 < 0) {
-                currentPage = json.length - 1;
-                setInnerText(json2pageorder[currentPage]);
-            } else {
-                currentPage--
-                setInnerText(json2pageorder[currentPage])
-            }
-        }
-
-        function switchRight() {
-            if (currentPage + 1 > json.length - 1) {
-                currentPage = 0
-                setInnerText(json2pageorder[currentPage]);
-            } else {
-                currentPage++
-                setInnerText(json2pageorder[currentPage]);
-            }
-            
-        }
-
-        const json = [
-            // 0 home
-            {
-                name: "home",
-                articleTitle: `
-                <p style:"">
-                    Read about some <a onclick="setInnerText(1)">projects</a>, take a look at my <a href="Peter_Murray_Resume_2024.pdf">resume</a>, or play a game of <a href="minesweeper/minesweeper.html">minesweeper</a>.
-                </p>
-                `,
-                articleDesc: `
-                <p>
-                    Welcome! This website was written by myself, with help from my friend <a href="https://gabecamacho.com/">Gabe Camacho</a> to get the javascript working. Take a look around!
-                </p>
-                
-                <p class="mini">
-                    Design inspired by <a href="https://www.youtube.com/watch?v=nG2IyH43xMU">hyperplexd's</a> video on <a href="https://www.dylanbrouwer.design/">Dylan Brouwer's</a> design work. Looking for <a href="tempchart/tempchart.html">tempchart</a>?
-                </p> 
-                `,
-                imgSrc: `
-                <div class="image" style="background-image: url(peter.jpg);"></div>
-                `,
-                vidSrc: ""
-
-            },
-            // 1 nav_armgui
-            {
-                name: "Armgui",
-                articleTitle: `Armgui`,
-                articleDesc: `
-                <p>
-                    &ensp; Armgui is a user interface written in C++ with <a href="https://github.com/ocornut/imgui">Dear ImGui</a>, an immediate-mode GUI library. Armgui was built to both test and create an easier way to get familiar with the <a href="https://emanual.robotis.com/docs/en/platform/openmanipulator_x/overview/">OpenManipulatorX</a>, a small scale robotic manipulator. It is written for both Windows and Linux as a standalone application.
-                </p>
-                <p>
-                    <a href="https://github.com/petmurr/armgui">https://github.com/petmurr/armgui</a>
-                </p>
-                `,
-                imgSrc: `
-                    <div class="image" id="quack" style="background-image: url(./armgui/connected_v0.6.png); background-size: contain; background-repeat: no-repeat;"></div>
-                   `,
-                vidSrc: ""
-            },
-            // 2 nav_manim
-            {
-                name: "Motion Planning Manimations",
-                articleTitle: `Motion Planning Manimations explaining RRT`,
-                articleDesc: `
-                <p>
-                    &ensp; Motion planning is a uniquely visual field of robotics whose fundamental ideas are inherently spatial and geometric in nature. Here, I've animated two core ideas- <i>the configuration space</i> and the <i>RRT algorithm</i>. Taking inspiration from 3B1B's <i>Manim</i>- more specifically, <a href="https://www.manim.community/">Manim Community</a>- I created a series of videos that go over the basics of the rapidly exploring random tree, an interesting and fundamental motion planning concept that lacked any beautiful visual representation. 
-                </p>
-                <p>
-                    &ensp; With help from my advisor to organize the lession in three steps, we introduce the concept, break down the fundamental steps, and deal with a 'real' example. These videos implement the key animations that can be split into segments and used within a lecture, but you can watch them here if you like!
-                </p>
-                <p>
-                    Part 0: RRT Intuition (currently playing to the left)
-                </p>
-                <p>
-                    <a href="rrt/RRT1_Basics.mp4">Watch Part 1: RRT Basics</a>
-                </p>
-                <p>
-                    <a href="rrt/RRT2_Application.mp4">Watch Part 2: RRT Application</a>
-                </p>
-                <p>
-                    <a href="rrt/Motion_Planning_ISP-1.pdf">Report PDF</a>.
-                </p>
-                `,
-                imgSrc: `
-                <video id="rrtvid" autoplay="" loop="" src="rrt/RRT0_Intuition.mp4#t=7,20"></video>    
-                `,
-                vidSrc: ""
-            },
-            // 3 nav_miren
-            {
-                name: "Miren",
-                articleTitle: `Miren, an attentive musical siren`,
-                articleDesc: `
-                <p>
-                    &ensp; Miren (musical siren), is a volume and pitch-controllable air-raid siren. It uses the characteristic rotor and stator found in early 20th century sirens, and boasts the volume to match. The entire mechanical construction consists of a frame, rotor, stator, brushless motor and valve to regulate the volume of air entering the siren.
-                </p>
-                <p>
-                    &ensp; Though the integration is incomplete, Miren is capable of 'listening' to its environment, be a passing car or a human's whistle, and identify the notes that it hears, and generate a 'continuation' of what it hears with a modified 2nd order Markov chain having been trained on a collection of 10,000 monophonic midi files.
-                </p>
-                <p>
-                    &ensp; Miren uses a wireless protocol to receive pitch and volume trajectory information over long distances. It's capable of reproducing notes from C3 (~130 Hz) to C6# (1109 Hz) and draws around 250 watts during quick, high register requests.
-                </p>
-                <p><a href="miren/Miren_Musical_Robot_Final_Paper.pdf">Report PDF.</a></p>
-                `,
-                imgSrc: `
-                <div class="miren_article_box">
-                    <div id="vid">
-                        <video controls="" src="miren/miren_demo.mov"></video>    
-                    </div>
-                    <div class="newimage" id="wireframe" style="background-image: url(./miren/miren_wireframe.png)"></div>
-                    <div class="spacer"></div>
-                    <div class="spacer"></div>
-                    <div class="newimage"  id=graph style="background-image: url(./miren/large_jump.png)"></div>
-                </div>
-                `,
-                // vidSrc: "<img src='fsae.gif'>"
-                vidSrc: ""
-            },
-            // 4 nav_kinoplan
-            {
-                name: "Kinodynamic_Planner",
-                articleTitle: `Kinodynamic Planning`,
-                articleDesc: `
-                <p>
-                    &ensp; An exercise in the fundamental ideas behind kinodynamic motion planning, myself and two teammates wrote a 1, 2 and 3-link planar manipulator simulator and then created a motion planner by implementing the rapdily expanding random tree algorithm in the context of both joint position <i>and</i> joint torque. 
-                </p>
-                <p>
-                    &ensp; Our motion planner was principally made from the robot model, our path bounds (start and goal state), our task space (as defined as obstacle boundaries as stored in a CSV), and a state sampler and collision checker. By generating and applying random torques to your arm, adding each new trajectory to a tree, the hope is to rapidly explore your configuration space while being considerate of your physical actuators. On the left, the second gif visualizes this random torque application.
-                </p>
-                <p>
-                    &ensp; Written entirely in python using an unoptimized RRT algorithm, our implementation was painfully slow. Branches would grow on the scale of minutes. Simulating our arm forward in time based on randomly generated torque values introduced a great deal of extra parameters to tune, and our manhattan distance function's poor performance in higher dimensional space is also to blame.
-                </p>
-                `,
-                imgSrc: `
-                <div class="kino_article_box">
-
-                <div class="newimage" id="kino1" style="background-image: url(./kino/2link.gif)"></div>
-                <div class="newimage"  id="kino2" style="background-image: url(./kino/3link.gif)"></div>
-                <div class="newimage"  id="kino3" style="background-image: url(./kino/RRT.gif)"></div>
-                <div class="newimage"  id="kino4" style="background-image: url(./kino/kinodynamic_blockdiag.png)"></div>
-                
-
-                </div>
-                `,
-                vidSrc: ""
-            },
-            // 5 nav_fsae
-            {
-                name: "FSAE",
-                articleTitle: `Formula Electric 2023`,
-                articleDesc: `
-                <p>
-                    &ensp; EV23 is WPI's electric racecar that raced at the 2023 Formula Hybrid + Electric competition, and <a href="https://www.formula-hybrid.org/history/2023">tied for third overall</a>. I worked with some incredibly talented engineers, and was a member of battery subteam.
-                </p>
-                <p>
-                    &ensp; Our team was responsible for integrating a more reliable and servicable accumulator. Among my contributions, a redesigned accumulator enclosure responsible for housing our cells  and high voltage components electroncs. We designed and built segment rails to adapt the old segment design into our new enclosure, and creating the fanifold, a fan manifold that can be quickly mounted and unmounted. The new enclosure drastically improves the mechanical support for our segments, and the busbars as mounted to the accumulator's rear panel both reduces the space required and makes our accumulator's disassembly much faster than the year previous.
-                </p>
-                `,
-                imgSrc: `
-                <div class="fsae_article_box">
-                <div class="newimage" id="fsae1" style="background-image: url(./fsae/fsae_epic.png)"></div>
-                <div class="newimage" id="fsae2" style="background-image: url(./fsae/busbars.png)"></div>
-                <div class="newimage" id="fsae3" style="background-image: url(./fsae/segment_rails.png)"></div>
-                <div class="newimage" id="fsae4" style="background-image: url(./fsae/segment_render.png)"></div>
-                <div class="newimage" id="fsae5" style="background-image: url(./fsae/fanifoldrender.png)"></div>
-                <div class="newimage" id="fsae6" style="background-image: url(./fsae/fanifold.png)"></div>
-                </div>
-                `,
-                vidSrc: "<video muted autoplay src='fsae.webm' type='video/webm'></video>"
-            },
-            // 6 nav_hprc
-            {
-                name: "HPRC",
-                articleTitle: `High Powered Rocketry Club`,
-                articleDesc: `
-                <p>
-                    &ensp; Helped design, build and debug the sensor board for HPRC's <i>The Stack:</i> a series of four separate PCBs, each dedicated to a key function necessary for our rocket. These four boards communicated with one another over CAN- among them, the <b>power board</b> for power regulation and voltage control, the <b>telemetry board</b> for LoRA radio communication, the <b>controller board</b>, responsible for interfacing with a micomod teensy for state estimation and airbrake control, and the <b>sensor board</b>, a board dedicated to interfacing with an IMU, Barometer, Magnetometer and GPS.
-                </p>
-                <p>
-                    &ensp; The sensor board made use of both a 3.3v and 5v pour and is made of a total of four layers. Since we used CAN, each board needed its own CAN controller and transceiver as well as its own microprocessor- three of the four boards had a dedicated ATMEGA328. CAN ended up being a large hurdle to both the electronics design team as well as the embedded system team due to the volume of data produced by our sensors after parsing the data, which required a great deal of work to send correctly. 
-                </p>
-                <p>
-                    &ensp; This design was eventually scrapped for a much simpler, single board, which removed a huge amount of overhead from our CAN device drivers, so the stack never got to fly. However, the stack remains in our hearts. And it looks awesome.
-                </p>
-                `,
-                imgSrc: `
-                <div class="hprc_article_box">
-
-                <div class="newimage" id="hprc1" style="background-image: url(./hprc/stack.png)"></div>
-                <div class="newimage"  id="hprc2" style="background-image: url(./hprc/sensorboard_v2_3d.png)"></div>
-                <div class="newimage"  id="hprc3" style="background-image: url(./hprc/sensorboard_v1.png)"></div>
-                <div class="newimage"  id="hprc4" style="background-image: url(./hprc/sensorboard_pcb.png)"></div>
-                <div class="newimage"  id="hprc5" style="background-image: url(./hprc/HPRC_ENP_BlockDiagram.png)"></div>
-                <div class="newimage"  id="hprc6" style="background-image: url(./hprc/sensorboard_v1_debug.jpg)"></div>
-
-                </div>
-                `,
-                vidSrc: ""
-            },
-            // 7 nav_wasm
-            {
-                name: "WASM",
-                articleTitle: `Inverted Reaction Wheel Pendulum Simulation`,
-                articleDesc: `
-                <p>
-                    &ensp; Play around with this inverted reaction wheel pendulum, created with <a href="https://github.com/ocornut/imgui">Dear Imgui</a>, compiled to WebAssembly using Emscripten. This simulation is unrealistic but very fun to play with.
-                </p>
-                <p>
-                    &ensp; As the pendulum rotates, an angular velocity is imparted to the wheel. The wheel imparts an angular velocity on the pendulum. Having control over the wheel’s rotation allows us to impart just the right amount of torque to the pendulum to stabilize the system in the upright configuration. I designed a full state feedback controller to see the math in action. 
-                </p>
-                `,
-                imgSrc: `
-                        <iframe src="./wasm/index.html" class="emscripten-iframe" id="iframe" style="width:100%; height:100%; border:none;"></iframe>
-                        `,
-                vidSrc: ""
-            },
-        ]
-
-        function setInnerText(pageNumber) {
-            mainTag.innerHTML = `
-        <article>
-            <div class="article_image asec">${json[pageNumber].imgSrc}</div>
-            <div class="article_desc asec">
-                <div class="bottom_text" id="bottom_text">
-                    <p>${json[pageNumber].articleDesc}</p>
-                </div>
-            </div>
-            <div class="article_title asec">
-                <div class="title_text" id="title_text">
-                    <h1>${json[pageNumber].articleTitle}</h1>
-                </div>
-            </div>
-            <div class="article_nav asec">
-                <div onclick="switchLeft()" class="left" id="leftright">
-                    <h1><</h1>
-                </div>
-                <div onclick="switchRight()" class="right" id="leftright">
-                    <h1>></h1>
-                </div>
-            </div>
-            `
-            
-            // Change the color to indicate which page you're on
-            switch (pageNumber) {
-                case 1:
-                    changeColor("nav_armgui");
-                    break;
-                case 2:
-                    changeColor("nav_manim");
-                    break;
-                case 3:
-                    changeColor("nav_miren");
-                    break;
-                case 4:
-                    changeColor("nav_kinoplan");
-                    break;
-                case 5:
-                    changeColor("nav_fsae");
-                    break;
-                case 6:
-                    changeColor("nav_hprc");
-                    break;
-                case 7:
-                    changeColor("nav_wasm");
-                    break;
-                default:
-                    changeColor("lolol");
-            }
-
-        }
-
-        function changeColor(targetId) {
-            var ids = [
-                "nav_armgui", 
-                "nav_manim", 
-                "nav_miren", 
-                "nav_kinoplan", 
-                "nav_fsae", 
-                "nav_hprc", 
-                "nav_wasm",];
-
-            ids.forEach(function(id) {
-                var div = document.getElementById(id);
-                if (id === targetId) {
-                    div.style.backgroundColor = "#243139";
-                } else {
-                    div.style.backgroundColor = '';
+            <script type='text/javascript'>
+                var Module = {
+                preRun: [],
+                postRun: [],
+                print: (function() {
+                    return function(text) {
+                        text = Array.prototype.slice.call(arguments).join(' ');
+                        console.log(text);
+                    };
+                })(),
+                printErr: function(text) {
+                    text = Array.prototype.slice.call(arguments).join(' ');
+                    console.error(text);
+                },
+                canvas: (function() {
+                    var canvas = document.getElementById('canvas');
+                    //canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
+                    return canvas;
+                })(),
+                setStatus: function(text) {
+                    console.log("status: " + text);
+                },
+                monitorRunDependencies: function(left) {
+                    // no run dependencies to log
                 }
-            });
-        }
+                };
+                window.onerror = function() {
+                console.log("onerror: " + event);
+                };
+            </script>
 
-        // Function to get URL parameters
-        function getUrlParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+            <script defer>
+                
+                // change the page order here, index in json stays the same, just rearrange the mapping and check your work
+                // this doesnt need to be a dict
+                // oh and you should rearrange navbar, I don't want to rewrite it it's not too bad
+                const json2pageorder = {
+                    0: 0,   // home
+                    1: 7,   // wasm/irwp
+                    2: 5,   // fsae
+                    3: 2,   // manim/rrt
+                    4: 1,   // armgui
+                    5: 3,   // miren
+                    6: 6,   // hprc
+                    7: 4    // kinoplan
+                };
 
-        // change these to link to certain page from elsewhere
-        // e.g. https://petermurray.net/?page=irwp
-        const pageMap = {
-            'armgui': 1,
-            'rrt': 2,
-            'fsae': 5,
-            'irwp': 7
-        };
+                const mainTag = document.getElementById("article")
+                let currentPage = 0
 
-        let max_page_idx = 7;
+                function switchLeft() {
+                    if (currentPage - 1 < 0) {
+                        currentPage = json.length - 1;
+                        setInnerText(json2pageorder[currentPage]);
+                    } else {
+                        currentPage--
+                        setInnerText(json2pageorder[currentPage])
+                    }
+                }
 
-        function getPageFromParam(param) {
-            // Check if the parameter is a key in the pageMap
-            if (pageMap.hasOwnProperty(param)) {
-                return pageMap[param];
-            }
-            // Attempt to convert param to a number
-            const pageNumber = parseInt(param, 10);
-            return !isNaN(pageNumber) && pageNumber >= 0 && pageNumber <= max_page_idx ? pageNumber : null;
-        }
+                function switchRight() {
+                    if (currentPage + 1 > json.length - 1) {
+                        currentPage = 0
+                        setInnerText(json2pageorder[currentPage]);
+                    } else {
+                        currentPage++
+                        setInnerText(json2pageorder[currentPage]);
+                    }
+                    
+                }
 
-        const pageParam = getUrlParameter('page');
-        const page = getPageFromParam(pageParam);
+                const json = [
+                    // 0 home
+                    {
+                        name: "home",
+                        articleTitle: `Welcome!`,
+                        articleDesc: `
+                        <p>
+                            Hello! I’m Peter Murray, and I’m looking to design hardware and software for things that move.
+                            <br><br>
 
-        if (page !== null) {
-            setInnerText(page);
-        } else {
-            // Default to page 0 if no valid parameter is set
-            setInnerText(0);
-        }
+                            &ensp; I have formal work experience as a mechanical design engineer on multiple undersea autonomous and tow vehicles where I focused on structural design, electronics packaging, and prototyping. My time working at Draper as a systems engineer was my first introduction to production-level modeling and requirement validation of large-scale projects, where I received great experience with scripting, data processing, and designing tests for validation. Moving forwards, I’m looking to dive into an ambitious technical project.
 
-    </script>
+                        </p>
+                        <p>
+                            &ensp; Check out my favorite projects: <a onclick="setInnerText(5)">EV23, WPI’s second ever electric race car</a>, and an <a onclick="setInnerText(7)">interactive inverted reaction wheel pendulum</a>.
+                        <br><br>
+                            &ensp; I’m open to any discussion of my projects or future work opportunities. Please reach out at <a href="mailto:peter@petermurray.net">peter@petermurray.net</a>. 
+                        <br><br>
+                            See my <a href="Peter_Murray_Resume_2024.pdf">resume here</a> or below.
+                            <br><br>
+                            <object data="Peter_Murray_Resume_2024.pdf" type="application/pdf">    
+                            </object>
+                            <br><br><br><br>
+                            You also can also play a game of <a href="minesweeper/minesweeper.html">minesweeper here</a>.    
+                        </p>
+                        <br>
+                        `,
+                        imgSrc: `
+                        <div class="image" style="background-image: url(peter.jpg);"></div>
+                        `,
+                        vidSrc: "",
+                        misc: ""
 
+                    },
+                    // 1 nav_armgui
+                    {
+                        name: "Armgui",
+                        articleTitle: `Armgui`,
+                        articleDesc: `
+                        <p>
+                            &ensp; Armgui is a user interface written in C++ for both windows and linux, built to create an easier way for lab assistants to rapidly test the <a href="https://emanual.robotis.com/docs/en/platform/openmanipulator_x/overview/">OpenManipulatorX</a>, a small-scale serial robotic manipulator used in WPI’s junior level robotics class. Since it doesn’t require any external software, it also provides a great way to demo the robot arm for tour groups or play around with the arm safely without programming experience.
+                            <br>
+                        </p>
+                        <p>
+                            <a href="https://github.com/petmurr/armgui">https://github.com/petmurr/armgui</a>
+                        </p>
+                        <p>
+                            &ensp; This is my first relatively complicated C++ program, and my first time working with <a href="https://github.com/ocornut/imgui">Dear ImGui</a>, an immediate-mode graphical user interface library. The <a href="https://github.com/ROBOTIS-GIT/DynamixelSDK">Dynamixel SDK</a> is responsible for talking to the dynamixel servos at a low level, so the program ultimately unites Imgui with the Dynamixel SDK. At a basic level, it looks for a connected serial port, connects to a series of servos, sets the connected servos to the correct mode, and enables the servo's torque when safe to do so. To move the arm into a “home” or “stowed” state, I generate a quintic spline that each servo follows. Each joint can be moved individually with a custom dial implementation after the mouse input has been smoothed to prevent large erroneous inputs. Torque is disabled if the program detects the robot exerting an excessive amount of effort on any of the joints; for example, the robot interfering with itself or an obstacle in its environment. I designed a state machine to manage all the program's functions and outlined a rough outline of the state machine below. 
+
+                        </p>
+                        
+                        <img src=armgui/armgui_state_diagram.png style="width: 90%"></img>
+                        <br><br><br><br>
+                        `,
+                        imgSrc: `
+                            <div class="image" id="quack" style="background-image: url(./armgui/connected_v0.6.png); background-size: contain; background-repeat: no-repeat;"></div>
+                        `,
+                        vidSrc: "",
+                        misc: `
+                        
+                        `
+                    },
+                    // 2 nav_manim
+                    {
+                        name: "Motion Planning Animations",
+                        articleTitle: `Motion Planning Animations`,
+                        articleDesc: `
+                        <p>
+                            &ensp; Motion planning is a uniquely visual field of robotics whose fundamental ideas are beautifully spatial and geometric. Taking inspiration from Grant Sanderson’s Manim python library- specifically, <a href="https://www.manim.community/">Manim Community</a>- I created a series of videos that go over the basics of the <b>configuration space</b> and the <b>rapidly exploring random tree</b>, two interesting and fundamental motion planning concepts that lacked any beautiful visual representation.
+                        </p>
+                        <h2>
+                            <br>
+                            Configuration Space
+                        </h2>
+                        <p>
+                            &ensp; The configuration space is introduced with a simple robot arm with a single joint and link whose configuration can be completely described by a single number theta that is plotted on a number line. The video then extends this idea to a robot arm with two joints and two links whose configuration can be plotted on a 2D plane. Care is taken to explain the idea of a configuration and the representation of obstacles in each case.
+                        </p>
+                            <iframe id=cspacevid width="560" height="315" src="https://www.youtube.com/embed/lfIn3FLvhpc?si=didVxy1cZfkTdWZ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        
+                        <h2>
+                            <br>
+                            RRT algorithm
+                        </h2>
+                        
+                        <p>
+                            &ensp; With help from my advisor, the RRT lesson is organized in three steps. The first shows the algorithm in action to get a sense of how the RRT algorithm explores its surroundings. The second breaks down the algorithm into its fundamental steps, and the third applies the algorithm to an example to apply each step and explain edge cases as they appear. These videos implement the key animations and are designed to be modular, so can be split into segments and used within a lecture.
+                        </p>                
+                        <br><br>
+                        <h3>RRT Intuition</h3>
+                        <video controls="" src="rrt/RRT0_Intuition.mp4" style="width: 90%"></video>        
+                        <br><br>
+                        <h3>Algorithm Steps</h3>
+                        <video controls="" src="rrt/RRT1_Basics.mp4" style="width: 90%"></video>        
+                        <br><br>
+                        <h3>Example application</h3>
+                        <video controls="" src="rrt/RRT2_Application.mp4" style="width: 90%"></video>        
+                        <br><br>
+                        `,
+                        imgSrc: `
+                        <video id="rrtvid" autoplay="" loop="" src="rrt/RRT0_Intuition.mp4#t=7,20"></video>
+                        `,
+                        vidSrc: "",
+                        misc: ""
+                    },
+                    // 3 nav_miren
+                    {
+                        name: "Miren",
+                        articleTitle: `Miren, an attentive musical siren`,
+                        articleDesc: `
+                        <p>
+                            &ensp; Miren (musical siren), is a volume and pitch-controllable air-raid siren. It uses the characteristic rotor and stator found in early 20th century sirens, and boasts the volume to match. The entire mechanical construction consists of a frame, rotor, stator, brushless motor and valve to regulate the volume of air entering the siren.
+                        </p>
+                        <p>
+                            &ensp; Though the integration is incomplete, Miren is capable of 'listening' to its environment, be a passing car or a human's whistle, and identify the notes that it hears, and generate a 'continuation' of what it hears with a modified 2nd order Markov chain having been trained on a collection of 10,000 monophonic midi files.
+                        </p>
+                        <p>
+                            &ensp; Miren uses a wireless protocol to receive pitch and volume trajectory information over long distances. It's capable of reproducing notes from C3 (~130 Hz) to C6# (1109 Hz) and draws around 250 watts during quick, high register requests.
+                        </p>
+                        <p><a href="miren/Miren_Musical_Robot_Final_Paper.pdf">Report PDF.</a></p>
+                        `,
+                        imgSrc: `
+                        <div class="image" style="background-image: url(./miren/miren_wireframe.png);"></div>
+                        `,
+
+                        vidSrc: "",
+                        misc: ""
+                    },
+                    // 4 nav_kinoplan
+                    {
+                        name: "Kinodynamic_Planner",
+                        articleTitle: `Kinodynamic Planning`,
+                        articleDesc: `
+                        <p>
+                            &ensp; An exercise in the fundamental ideas behind kinodynamic motion planning, myself and two teammates wrote a 1, 2 and 3-link planar manipulator simulator and then created a motion planner by implementing the rapdily expanding random tree algorithm in the context of both joint position <i>and</i> joint torque. 
+                        </p>
+                        <p>
+                            &ensp; Our motion planner was principally made from the robot model, our path bounds (start and goal state), our task space (as defined as obstacle boundaries as stored in a CSV), and a state sampler and collision checker. By generating and applying random torques to your arm, adding each new trajectory to a tree, the hope is to rapidly explore your configuration space while being considerate of your physical actuators. On the left, the second gif visualizes this random torque application.
+                        </p>
+                        <p>
+                            &ensp; Written entirely in python using an unoptimized RRT algorithm, our implementation was painfully slow. Branches would grow on the scale of minutes. Simulating our arm forward in time based on randomly generated torque values introduced a great deal of extra parameters to tune, and our manhattan distance function's poor performance in higher dimensional space is also to blame.
+                        </p>
+                        `,
+                        imgSrc: `
+                        <div class="kino_article_box">
+                            <div class="newimage" id="kino1" style="background-image: url(./kino/2link.gif)"></div>
+                            <div class="newimage"  id="kino2" style="background-image: url(./kino/3link.gif)"></div>
+                        </div>
+                        `,
+                        vidSrc: "",
+                        misc: ""
+                    },
+                    // 5 nav_fsae
+                    {
+                        name: "FSAE",
+                        articleTitle: `Formula Electric 2023`,
+                        articleDesc: `
+                            <p>
+                                &ensp; EV23 is WPI's electric racecar that raced at the 2023 Formula Hybrid + Electric competition, and <a href="https://www.formula-hybrid.org/history/2023">tied for third overall</a>. I worked with some incredibly talented engineers, and was a member of battery subteam.
+                                <br><br>
+                            </p>
+                            <h2>Accumulator Redesign</h2>
+                            <img src=fsae/fsae_rear.png style="width: 80%"></img>
+                            <p>
+                                &ensp; Over a school year we conceptualized, modeled, and manufactured entirely new accumulator enclosure, mounting system, and cooling system. We adapted the battery segments to be both more structurally sound as well as modular, drastically improving the time required to assemble and disassemble the accumulator. The modularity in combination with the ability to bypass a segment allowed us to keep our car in the competition in the event of an unforeseen failure. <br><br>
+                            </p>
+                            <br>
+                            <br>
+                            <img src=fsae/busbars.png style="width: 90%"></img>
+                            <br>
+                            <img src=fsae/segment_rails.png style="width: 50%"></img>
+                            <br>
+                            <p>
+                                &ensp; We designed and built segment rails to adapt the cell segments used in the year previous into our new enclosure. Each segment slides into tracks made from slippery UMHW on the top and bottom of the center of the enclosure. When the rear panel is installed, all the segments are connected in series. Each segment is identical, and can be swapped with any other. In the case of a segment failure, we can swap a busbar that connects only three segments in series to keep our car from dropping from the competition entirely. The panel design has the added benefit of guaranteeing the accumulator is unpowered when opened for service.
+                            </p>
+                            <h2><br>Machining Firsts</h2>
+                            <img src=fsae/garolite_double.png style="width:90%"></img>
+                            <br>
+                            <p>
+                                &ensp; I had the opportunity to have a few machining firsts when the accumulator was coming together late in the year. These cell segments are required to be isolated between fire resistant garolite sheets, which in the case of an emergency, prevent the accumulator from burning too quickly. Since cutting fiberglass is notorious for wearing out tools and throwing irritating dust everywhere, these were a little more difficult to make. We ended up bagging an entire tabletop CNC machine, using water to cut down on the dust, and wore goggles, a respirator, and a spare set of clothes.
+                                
+                                
+                            </p>
+                            <br>
+                            <br>
+                            <img src=fsae/hass_tm_fixturing2.png style="width: 70%"></img>
+                            <br>
+                            <img src=fsae/hass_tm_fixturing.jpg style="width: 70%"></img>
+                            <br>
+                            <p>
+                                &ensp; When I made the intake fan manifold, aptly named the fanifold, I spent a great deal of time learning about fixturing with the Hass tool room mill cutting 1/8th inch polycarbonate sheets.
+                            </p>
+
+                            <img src=fsae/fanifold_double.png style="width: 80%"></img>
+                            <br><br>
+                            <p>
+                                Thanks for reading this far! I also have a video of EV22, back when we were testing it. It had really long control arms.
+                            </p>
+
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/EYLcYSEN-HY?si=ZKV9ksa1Diul80EM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                        
+                        `,
+                        imgSrc: `
+                        <div class="image" id="fsae1" style="background-image: url(./fsae/fsae_epic.png)"></div>
+                        `,
+                        vidSrc: "<video muted autoplay src='fsae.webm' type='video/webm'></video>",
+                        misc: `
+                        <div class="misc">
+ 
+                        </div>
+                        `
+                    },
+                    // 6 nav_hprc
+                    {
+                        name: "HPRC",
+                        articleTitle: `High Powered Rocketry Club`,
+                        articleDesc: `
+                        <p>
+                            &ensp; Helped design, build and debug the sensor board for HPRC's <i>The Stack:</i> a series of four separate PCBs, each dedicated to a key function necessary for our rocket. These four boards communicated with one another over CAN- among them, the <b>power board</b> for power regulation and voltage control, the <b>telemetry board</b> for LoRA radio communication, the <b>controller board</b>, responsible for interfacing with a micomod teensy for state estimation and airbrake control, and the <b>sensor board</b>, a board dedicated to interfacing with an IMU, Barometer, Magnetometer and GPS.
+                        </p>
+                        <p>
+                            &ensp; The sensor board made use of both a 3.3v and 5v pour and is made of a total of four layers. Since we used CAN, each board needed its own CAN controller and transceiver as well as its own microprocessor- three of the four boards had a dedicated ATMEGA328. CAN ended up being a large hurdle to both the electronics design team as well as the embedded system team due to the volume of data produced by our sensors after parsing the data, which required a great deal of work to send correctly. 
+                        </p>
+                        <p>
+                            &ensp; This design was eventually scrapped for a much simpler, single board, which removed a huge amount of overhead from our CAN device drivers, so the stack never got to fly. However, the stack remains in our hearts. And it looks awesome.
+                        </p>
+                        `,
+                        imgSrc: `
+                        <div class="newimage" id="hprc1" style="background-image: url(./hprc/stack.png)"></div>
+                        `,
+                        vidSrc: "",
+                        misc: ""
+                    },
+                    // 7 nav_wasm
+                    {
+                        name: "WASM",
+                        articleTitle: `Inverted Reaction Wheel Pendulum`,
+                        articleDesc: `
+
+                        <p>
+                            &ensp; Press the "nudge" buttons to see the controller stabilize the input! I created this with Dear Imgui, and compiled it to WebAssembly using Emscripten. This simulation is using a state space controller using pole placement, and uses Euler's method to propagate dynamics over time. It's unrealistic, but fun to see in action.
+                        </p>
+                        <h2>Simulation vs Real-World</h2>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/q-3DYe_nyH0?si=8zRCaPbPAhOW2Sg0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <p>
+                            <br>
+                            &ensp; This is an inverted pendulum with a reaction wheel attached at one end. Reaction wheels are often found in spacecraft for attitude control since they can precisely apply a torque to the craft they’re attached to by spinning up or slowing down. We can take advantage of this functionality by placing a reaction wheel at the end of a pendulum to stabilize it in the upright configuration.
+                            <br><br>
+                        </p>
+                        <img src=irwp/model_drawn.png style="width: 50%"></img>
+                        <p>
+                            &ensp; Since an inverted pendulum is a highly unstable system, you have to be careful with the way you apply a torque to stabilize it. Above is a simulation that is implementing a “state space controller”, a controller that generates some output torque based on the system’s full “state,” in our case, the pendulum’s angle, the wheel’s angle, pendulum’s angular velocity, and the wheel’s angular velocity. I first found the equations of motion of the system by using the Lagrangian formulation of dynamics and then linearized the system about the equilibrium point of the pendulum in the upright configuration. I then used pole placement to find appropriate gain matrices that, when multiplied by the state vector, calculate an exact torque that will stabilize the pendulum in the upright configuration. 
+                            <br><br>
+                            &ensp; This analysis was all in preparation for implementation on a real-world version of the system, but the real world integration of the controller was immensely difficult due to model mismatch and unmodeled dynamics of my motor. To see if it was possible at all, I tried implementing a simpler PID controller, which I eventually got to work.
+                            <br><br><br><br>
+                        </p>
+                        `,
+                        imgSrc: `
+                                <iframe src="./wasm/index.html" class="emscripten-iframe" id="iframe" style="width:100%; height:100%; border:none;"></iframe>
+                                `,
+                        vidSrc: "",
+                        misc: ""
+                    },
+                ]
+
+                function setInnerText(pageNumber) {
+                    mainTag.innerHTML = `
+                        
+                        <div class="article_title">
+
+                            <h1>${json[pageNumber].articleTitle}</h1>
+
+                        </div>
+
+                        <div class="article_image">
+
+                            ${json[pageNumber].imgSrc}
+
+                        </div>
+                        
+                        <div class="article_desc">
+
+                            ${json[pageNumber].articleDesc}
+
+                        </div>
+
+                        <div class="misc">
+                            
+                            ${json[pageNumber].misc}
+                        
+                        </div>
+                        
+                    `
+                    
+                    // Change the color to indicate which page you're on
+                    switch (pageNumber) {
+                        case 1:
+                            changeColor("nav_armgui");
+                            break;
+                        case 2:
+                            changeColor("nav_manim");
+                            break;
+                        case 3:
+                            changeColor("nav_miren");
+                            break;
+                        case 4:
+                            changeColor("nav_kinoplan");
+                            break;
+                        case 5:
+                            changeColor("nav_fsae");
+                            break;
+                        case 6:
+                            changeColor("nav_hprc");
+                            break;
+                        case 7:
+                            changeColor("nav_wasm");
+                            break;
+                        default:
+                            changeColor("lolol");
+                    }
+
+                }
+
+                function changeColor(targetId) {
+                    var ids = [
+                        "nav_armgui", 
+                        "nav_manim", 
+                        "nav_miren", 
+                        "nav_kinoplan", 
+                        "nav_fsae", 
+                        "nav_hprc", 
+                        "nav_wasm",];
+
+                    ids.forEach(function(id) {
+                        var div = document.getElementById(id);
+                        if (id === targetId) {
+                            div.style.backgroundColor = "#243139";
+                        } else {
+                            div.style.backgroundColor = '';
+                        }
+                    });
+                }
+
+                // Function to get URL parameters
+                function getUrlParameter(name) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(name);
+                }
+
+                // change these to link to certain page from elsewhere
+                // e.g. https://petermurray.net/?page=irwp
+                const pageMap = {
+                    'armgui': 1,
+                    'rrt': 2,
+                    'fsae': 5,
+                    'irwp': 7,
+                    'hprc': 6,
+                    'kino' : 4
+                };
+
+                let max_page_idx = 7;
+
+                function getPageFromParam(param) {
+                    // Check if the parameter is a key in the pageMap
+                    if (pageMap.hasOwnProperty(param)) {
+                        return pageMap[param];
+                    }
+                    // Attempt to convert param to a number
+                    const pageNumber = parseInt(param, 10);
+                    return !isNaN(pageNumber) && pageNumber >= 0 && pageNumber <= max_page_idx ? pageNumber : null;
+                }
+
+                const pageParam = getUrlParameter('page');
+                const page = getPageFromParam(pageParam);
+
+                if (page !== null) {
+                    setInnerText(page);
+                } else {
+                    // Default to page 0 if no valid parameter is set
+                    setInnerText(0);
+                }
+
+            </script>
+        </div>
+    </div>
 </body>
-
-</html>
