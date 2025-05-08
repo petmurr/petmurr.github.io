@@ -9,6 +9,7 @@
     --link_color: #a7d2ef;
     /* --nav_width: 15rem; */
     --nav_width: 25vw;
+    --test: #d6d6d6;
 }
 
 h1, h2, h3, a, p, span {

@@ -12,6 +12,9 @@
                 <h2>Peter Murray</h2> 
                 <!-- <p>Aspiring robotics engineer</p> -->
             </div>
+            <div onclick="setInnerText(8)" id="nav_armgui" class="project" style="background-image: url(./trajopt/pointmass.gif);">
+                <p>Trajectory Optimization</p>
+            </div>
             <div onclick="setInnerText(7)" id="nav_wasm" class="project" style="background-image: url(./irwp/thumbnail2.png);">
                 <p> Interactive Reaction Wheel Pendulum</p>
             </div>
@@ -27,6 +30,7 @@
             <div onclick="setInnerText(1)" id="nav_armgui" class="project" style="background-image: url(./armgui/thumbnail.png);">
                 <p>Robot Arm GUI</p>
             </div>
+            
 
             <!-- <div onclick="setInnerText(3)" id="nav_miren" class="project" style="background-image: url(./miren/thumbnail.png);">
                 <p>Musical Air Raid Siren</p>
@@ -90,7 +94,8 @@
                     4: 1,   // armgui
                     5: 3,   // miren
                     6: 6,   // hprc
-                    7: 4    // kinoplan
+                    7: 4,   // kinoplan
+                    8: 8    // trajopt
                 };
 
                 const mainTag = document.getElementById("article")
@@ -127,11 +132,16 @@
                             Hello! I’m Peter Murray, and I’m looking to design hardware and software for things that move.
                             <br><br>
 
-                            &ensp; I have formal work experience as a mechanical design engineer on multiple undersea autonomous and tow vehicles where I focused on structural design, electronics packaging, and prototyping. My time working at Draper as a systems engineer was my first introduction to production-level modeling and requirement validation of large-scale projects, where I received great experience with scripting, data processing, and designing tests for validation. Moving forwards, I’m looking to dive into an ambitious technical project.
-
                         </p>
                         <p>
-                            &ensp; Check out my favorite projects: <a onclick="setInnerText(5)">EV23, WPI’s second ever electric race car</a>, and an <a onclick="setInnerText(7)">interactive inverted reaction wheel pendulum</a>.
+                            &ensp; Check out my favorite projects: 
+                            <br>
+                        </p>
+                        <p>
+                            <a onclick="setInnerText(5)">EV23, WPI’s second ever electric race car</a>, and an <br>
+                            <a onclick="setInnerText(7)">interactive inverted reaction wheel pendulum</a>.
+                        </p>
+                        <p>
                         <br><br>
                             &ensp; I’m open to any discussion of my projects or future work opportunities. Please reach out at <a href="mailto:peter@petermurray.net">peter@petermurray.net</a>. 
                         <br><br>
@@ -380,6 +390,59 @@
                         vidSrc: "",
                         misc: ""
                     },
+                    // 8 nav_trajopt
+                    {
+                        name: "trajopt",
+                        articleTitle: "Stabilizing Trajectories",
+                        articleDesc: `
+                        <p>
+                            &ensp; To uncover some of the mystery of how engineers have made spacecraft land, I've implemented a time-varying LQR controller for a simple system, a thrust-vector controlled point mass, as part of my exploration into spacecraft landing dynamics. Russ Tedrake’s publicly available <a href="https://underactuated.csail.mit.edu/">Underactuated Robotics lectures</a> helped me connect the dots between fundamental control theory and  complex maneuvers. The challenge involved managing a nonlinear dynamic system in state-space form, where a trajectory optimizer planned a viable path for the system to take with certain initial and final conditions, minimizing a cost function that restricts fuel usage. In a simulation, the controller robustly drives the point mass across this trajectory by finding the time-varying gain necessary to stabilize the system. 
+                        </p>
+                        <h2><br>Trajectory Optimization is Magic</h2>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/6qj3EfRTtkE?si=PfoVClPJbMdSFm0d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <br><br>
+                        <p> 
+                            &ensp; If you’ve ever seen a quadrotor do a flip, a spaceship land softly or a robot doing a somersault, there’s a good chance it was created with trajectory optimization. I recently found it through an impressive demo that Thomas Godden published that created an animation that matched SN15’s belly flop maneuver with a surprising level of accuracy. <a href="https://thomasgodden.com/starship-trajopt.html">He wrote a great article about it on his website.</a>. He used CasADi, an open source optimization library that makes it easy to formulate and solve an optimization problem. 
+                        </p>
+                        <p>
+                            &ensp; In control classes, you will be taught how to stabilize systems with a control input such that it remains at a setpoint- to not move, with the goal of being robust to external disturbances. An inverted pendulum is a great way to get a sense for this; the pendulum in the upright configuration is inherently unstable and requires a corrective force for even small disturbances. But what if you wanted to find a way to move a pendulum from the downwards to the upwards configuration?
+                        </p>
+                        <img src=trajopt/cartpole.gif style="width: 90%; filter: none;"></img>
+                        <p>
+                            &ensp; Trajectory optimization solves this by transitioning the system from an initial to a final state while minimizing a cost function. It does this by slicing the trajectory (the pendulum’s angle and control input) into many discrete time intervals and then “changes” an input to see what sequence of inputs can drive the pendulum towards its goal. It does this whole process while calculating the cost of each sequence of inputs, which in our case translates to penalizing large input forces, and iterates until it finds the one with the least amount of cost used. I’m aware I’m being vague about how exactly an optimizer “changes a control input” because it implements some complicated iterative algorithms that involve calculating gradients of the cost function, searching a large area of possible solutions and eventually converging to a locally optimal solution if it exists. Each time step, it makes sure the dynamics of the system are obeyed: that the next state of the system is equal to the current state + the derivative of the state * dt, and if you choose to do so, limits the minimum and maximum control inputs possible to apply. 
+                        <br><br><br>
+                            &ensp; It’s surprisingly simple to formulate and solve a problem in CasADi, and I highly recommend you take a look at the code I wrote to find a “swing-up” and “swing-down” trajectory for the cart-pole system above.  Briefly, it defines the dynamics of the system, declares decision variables for the state of the cartpole (what position the cart and pole are in and how fast they’re moving), then defines a cost function, limits the controls to a maximum and minimum, and finally uses a solver to calculate the solution.
+                        </p>
+                        <h2><br>Trajectories are just a series of numbers</h2>
+                        <p>
+                            &ensp; Here’s an important detail: trajectory optimization is offline. That means the system can’t stabilize an active simulation or real-world hardware, because it’s simply a sequence of numbers. If you applied the sequence of inputs to a real-world cart-pole, or even a simulated cart-pole, it will just fall over. This is where trajectory stabilization can be used- since you already know the sequence of steps to take, you can construct a time-varying controller capable of making the system robust to external disturbances along the entire path the system takes. 
+                        </p>
+                        <h2><br>tvLQR control of a Thrust-vectored Point-mass</h2>
+                        <p>
+                            I chose to try and develop a time-varying LQR controller after modeling a simple system: a point-mass with a rotatable thruster.
+                        <br>
+                        </p>
+                        <img src=trajopt/pointmass.gif style="width: 40%; filter: none;"></img>
+                        <p>
+                            Precomputed thrust-vectored point-mass trajectory.
+                        </p>
+                        <img src=trajopt/matlab_traj.png style="width: 60%; filter: none;"></img>
+                        <p>
+                            Actively controlled thrust-vectored point-mass.
+                        </p>
+                        <br><br><br>
+                        <p>
+                            &ensp;Given the state vector X (our pointmass’s position and velocity in the x and y directions) we find a gain matrix K such that the equation u = -K * x drives our system to a desired state. This is the fundamental idea behind state space control, and there’s a clever way to calculate K that takes into consideration both actuator effort- the magnitude of our inputs- and our controllers performance- how large our errors are. I won’t be describing how LQR control works in detail, but there are a lot of great resources out there, like Brian Douglas’s excellent tech talk series (https://www.youtube.com/watch?v=E_RDCFOlJx4). What’s important is that if we have a linearized version of our system’s dynamics, it’s simple to calculate the gain matrix K with Matlab’s icare() function, which computes the closed-form algebraic riccati equation. 
+                            <br><br>
+                            &ensp;To make this time varying, I use the 200 steps in our trajectory to linearize 200 separate state space equations that each are assigned a gain matrix. Now we can have our system perform a maneuver online. Within a simulation, the gain matrices we computed will spit out just the right amount of input to stabilize the system at that time interval- at the next time interval, it uses the subsequent gain matrix. From here, we can add disturbances to see how well the controller performs. In this case, I initialized the system at a point a meter away from the trajectory’s actual initial position- in the graph above, you can see how the solid blue line, representing the point-mass’s actual trajectory initially starts a little bit away from the red dotted line, but then overlaps it but converges within a few seconds. There are more sophisticated ways of testing controllers like modeling sensor noise, polluting our input signal with noise, and seeing how far away from the starting point the controller can converge from. While this is far from a practical hardware implementation, I am very proud to have uncovered some of the mystery of how engineers have made spacecraft <i>land</i>.
+
+                        </p>
+                        `,
+                        imgSrc: `
+                        <div class="image" style="background-image: url(trajopt/pointmass.png)"></div>
+                        `,
+                        misc: ""
+                    }
                 ]
 
                 function setInnerText(pageNumber) {
@@ -434,6 +497,9 @@
                         case 7:
                             changeColor("nav_wasm");
                             break;
+                        case 8:
+                            changeColor("nav_trajopt");
+                            break;
                         default:
                             changeColor("lolol");
                     }
@@ -448,7 +514,8 @@
                         "nav_kinoplan", 
                         "nav_fsae", 
                         "nav_hprc", 
-                        "nav_wasm",];
+                        "nav_wasm",
+                        "nav_trajopt"];
 
                     ids.forEach(function(id) {
                         var div = document.getElementById(id);
@@ -474,7 +541,8 @@
                     'fsae': 5,
                     'irwp': 7,
                     'hprc': 6,
-                    'kino' : 4
+                    'kino' : 4,
+                    'trajopt': 8
                 };
 
                 let max_page_idx = 7;

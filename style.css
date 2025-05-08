@@ -37,7 +37,8 @@ h1, h2, h3, a, p, ul, span {
     color: var(--text_color);
     /* font-weight: 600; dark mode */
     font-weight: 900;
-    line-height: 1.5;
+    font-size: 1.2em;
+    line-height: 1.6;
     /* text-align: left; */
 }
 
@@ -129,7 +130,7 @@ nav {
     
     font-family: 'Ubuntu Mono';
     font-weight: 100;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     
     margin-top: 0px;
     margin-bottom: 0px;
@@ -215,6 +216,7 @@ a {
     padding-bottom: 1px;
     padding-right: 2px;
     padding-left: 2px;
+    font-size: 1em;
     
 }
 .article_title > p,a:hover {
@@ -248,12 +250,13 @@ img {
 }
 .article_desc > h2 {
     margin: 40px;    
+    font-size: 2em;
 }
 .article_desc > p {
     margin-right: 50px;
     margin-left: 50px;
     font-weight: var(--article_text_weight);
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 .article_desc > .image {
     flex-basis: 1300px;
